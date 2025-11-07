@@ -1,34 +1,44 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// src/App.jsx
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import NewsSection from './components/NewsSection';
-import WorldPreview from './components/WorldPreview';
-import GuardiansPreview from './components/GuardiansPreview';
-import Footer from './components/Footer';
+// Layout Components
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 
-import WorldPage from './Pages/WorldPage';
-import GuardiansPage from './Pages/GuardiansPage';
-import DevHubPage from './Pages/DevHubPage';
-import CommunityPage from './Pages/CommunityPage';
+// Home Page Sections
+import HeroSection from "./components/sections/HeroSection";
+import NewsSection from "./components/sections/NewsSection";
+import GuardiansPreview from "./components/sections/GuardiansPreview";
+import WorldPreview from "./components/sections/WorldPreview";
+
+// Core Pages
+import WorldPage from "./Pages/World/Index";
+import GuardiansPage from "./Pages/Guardians/Index";
+import DevHubPage from "./Pages/DevHub";
+import CommunityPage from "./Pages/Community";
+import AboutPage from "./Pages/About";
+import ContactPage from "./Pages/Contact";
+
+// ✅ Import the new unified detail component
+import GuardianDetail from "./Pages/Guardians/GuardianDetail";
 
 function HomePageContent() {
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    const sections = document.querySelectorAll('.fade-in-section');
-
-    sections.forEach(section => {
-      if (section) observer.observe(section);
-    });
+    const sections = document.querySelectorAll(".fade-in-section");
+    sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
   }, []);
@@ -47,23 +57,33 @@ function HomePageContent() {
 function App() {
   return (
     <Router>
+      <Navbar />
+
       <Routes>
+        {/* Home */}
         <Route
           path="/"
           element={
             <>
-              <Navbar />
               <HeroSection />
               <HomePageContent />
-              <Footer />
             </>
           }
         />
+
+        {/* Core Pages */}
         <Route path="/world" element={<WorldPage />} />
         <Route path="/guardians" element={<GuardiansPage />} />
         <Route path="/dev-hub" element={<DevHubPage />} />
         <Route path="/community" element={<CommunityPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+
+        {/* Guardian Detail Page */}
+        <Route path="/guardians/:id" element={<GuardianDetail />} />
       </Routes>
+
+      <Footer />
     </Router>
   );
 }

@@ -1,0 +1,91 @@
+[
+  {
+    "id": "iron-juggernaut",
+    "name": "Iron Juggernaut",
+    "title": "The Unbreakable Colossus",
+    "image": "/src/assets/images/Guardians/IronJuggernaut.jpg",
+    "faction": "The Forged Legion",
+    "role": "Tank / Protector",
+    "element": "Steel",
+    "power": 9,
+    "description": "Forged in the depths of the molten citadel, the Iron Juggernaut is a towering construct of brass and Aethersteel. Once a weapon of war, now he stands as the Guardian of the weak, his armor unyielding even against the mightiest blows.",
+    "abilities": [
+      "Aether Shield: Generates an energy barrier absorbing incoming damage.",
+      "Crushing Advance: Charges forward, stunning all enemies in his path."
+    ],
+    "affinity": ["Defense", "Tanking"],
+    "weakness": "Lightning",
+    "theme": {
+      "primary": "#5b6eff",
+      "text": "#9bb5ff",
+      "border": "#3f4b7a"
+    }
+  },
+  {
+    "id": "sunstone-archer",
+    "name": "Sunstone Archer",
+    "title": "The Radiant Huntress",
+    "image": "/src/assets/images/Guardians/SunstoneArcher.jpg",
+    "faction": "The Solari Enclave",
+    "role": "Ranged / DPS",
+    "element": "Light",
+    "power": 8,
+    "description": "Born beneath the blazing Sunspire, the Sunstone Archer channels the essence of light itself. Her arrows streak through the air like comets, illuminating the battlefield and burning away the shadows of corruption.",
+    "abilities": [
+      "Solar Flare: Fires a radiant arrow that blinds enemies.",
+      "Luminous Volley: Unleashes a burst of searing light arrows across a wide arc."
+    ],
+    "affinity": ["Ranged", "Damage"],
+    "weakness": "Shadow",
+    "theme": {
+      "primary": "#facc15",
+      "text": "#fde68a",
+      "border": "#ca8a04"
+    }
+  },
+  {
+    "id": "tidesinger",
+    "name": "Tide Singer",
+    "title": "Voice of the Deep",
+    "image": "/src/assets/images/Guardians/TideSinger.jpg",
+    "faction": "The Abyssal Choir",
+    "role": "Support / Healer",
+    "element": "Water",
+    "power": 8,
+    "description": "The Tide Singer's voice carries the rhythm of the ocean itself. Her songs can calm the fiercest storms or call forth tsunamis that wash away corruption and despair.",
+    "abilities": [
+      "Healing Wave: Sends a surge of rejuvenating water to heal allies.",
+      "Abyssal Song: Reduces enemy strength with a haunting melody."
+    ],
+    "affinity": ["Healing", "Support"],
+    "weakness": "Lightning",
+    "theme": {
+      "primary": "#38bdf8",
+      "text": "#bae6fd",
+      "border": "#0ea5e9"
+    }
+  },
+  {
+    "id": "valerius",
+    "name": "Valerius",
+    "title": "The Bone King",
+    "image": "/src/assets/images/Guardians/Valerius.jpg",
+    "faction": "The Ember Court",
+    "role": "Melee / Assassin",
+    "element": "Fire",
+    "power": 9,
+    "description": "Among the eldest of the Guardians, Valerius commands legions of skeletal warriors forged from the remnants of shattered realms. Bound by duty, he wields the power of life and death to restore order in the wake of cosmic collapse.",
+    "abilities": [
+      "Inferno Slash: Ignites his blade to deal heavy burning damage.",
+      "Blazing Mirage: Dashes forward, leaving behind fiery illusions.",
+      "Spectral Command: Summons skeletal warriors to aid in battle."
+    ],
+    "affinity": ["Melee", "Fire", "Death"],
+    "weakness": "Water",
+    "theme": {
+      "primary": "#f97316",
+      "text": "#fdba74",
+      "border": "#ea580c"
+    }
+  }
+]

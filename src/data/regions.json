@@ -1,0 +1,54 @@
+[
+  {
+    "id": "crystal_spires",
+    "name": "The Crystal Spires",
+    "description": "A breathtaking region where towering crystalline formations pierce the clouds, resonating with raw Aether energy. Once a hub of arcane research, now it glows eerily under perpetual storms of light.",
+    "climate": "Cold, stormy, electrically charged skies",
+    "keyLocations": [
+      { "name": "Shimmer Vault", "tier": "legendary" },
+      { "name": "The Prism Cathedral", "tier": "epic" },
+      { "name": "Fractured Observatory", "tier": "rare" }
+    ],
+    "color": "#6366f1",
+    "position": { "x": 20, "y": 35 }
+  },
+  {
+    "id": "sunken_city",
+    "name": "The Sunken City",
+    "description": "Once the heart of civilization, this submerged ruin still hums with old magic. Its submerged spires and floating ruins are haunted by echoes of the lost Aetherians.",
+    "climate": "Fog-heavy, humid, perpetual twilight",
+    "keyLocations": [
+      { "name": "The Abyssal Gate", "tier": "legendary" },
+      { "name": "Hall of Echoes", "tier": "epic" },
+      { "name": "Flooded Archives", "tier": "rare" }
+    ],
+    "color": "#ef4444",
+    "position": { "x": 48, "y": 60 }
+  },
+  {
+    "id": "verdant_cradle",
+    "name": "The Verdant Cradle",
+    "description": "An enormous, lush island overflowing with life where vines reach the sky and creatures grow impossibly large. Aether has made evolution go wild here.",
+    "climate": "Tropical, vibrant, unpredictable",
+    "keyLocations": [
+      { "name": "The Great Canopy", "tier": "legendary" },
+      { "name": "Bloomspire Basin", "tier": "epic" },
+      { "name": "Roots of Eternity", "tier": "rare" }
+    ],
+    "color": "#10b981",
+    "position": { "x": 90, "y": 75 }
+  },
+  {
+    "id": "permorn_caity",
+    "name": "Permorn Caity",
+    "description": "A desolate wasteland of dark stone and crackling energy. Rumors speak of Aether corruption so deep it warps time itself. Few return from its edge.",
+    "climate": "Barren, storm-wracked, unstable",
+    "keyLocations": [
+      { "name": "The Rift Core", "tier": "legendary" },
+      { "name": "Obsidian Reach", "tier": "epic" },
+      { "name": "The Endless Storm", "tier": "rare" }
+    ],
+    "color": "#10b981",
+    "position": { "x": 75, "y": 27 }
+  }
+]

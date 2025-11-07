@@ -1,0 +1,245 @@
+/* ============================================================================
+   STATIC GRID BACKGROUND - NO ANIMATION - 70VH HEIGHT
+   ============================================================================ */
+
+.grid-background-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+  
+  /* CRITICAL: Prevent overflow causing scrollbar */
+  contain: layout style paint;
+  will-change: auto;
+  
+  /* Clip to viewport */
+  clip-path: inset(0);
+}
+
+/* ============================================================================
+   MAIN GRID LINES - STATIC, NO ANIMATION, 70VH DESKTOP
+   ============================================================================ */
+
+.grid-lines {
+  position: absolute;
+  
+  /* Start from bottom, cover 70vh on desktop */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 70vh;  /* 70VH on desktop */
+  
+  /* Static grid pattern - NO ANIMATION */
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(6, 182, 212, 0.3) 0px,
+      rgba(6, 182, 212, 0.3) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(6, 182, 212, 0.3) 0px,
+      rgba(6, 182, 212, 0.3) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+  
+  background-size: 40px 40px;
+  background-position: 0 0;
+  
+  /* DESKTOP TRANSFORM - 45DEG ELEVATION */
+  transform: perspective(900px) rotateX(35deg) rotateZ(0deg) scaleX(2.2) scaleY(2.2);
+  transform-origin: bottom center;
+  
+  /* Performance optimization */
+  will-change: transform;
+  contain: layout style paint;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ============================================================================
+   CYAN GLOW - CENTER RADIAL - STATIC
+   ============================================================================ */
+
+.grid-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 70vh;  /* Match grid-lines height on desktop */
+  
+  /* Static radial gradient - NO ANIMATION */
+  background: radial-gradient(
+    ellipse 900px 400px at center bottom,
+    rgba(6, 182, 212, 0.2) 0%,
+    rgba(6, 182, 212, 0.1) 30%,
+    transparent 65%
+  );
+  
+  /* Performance */
+  contain: paint;
+}
+
+/* ============================================================================
+   PURPLE ACCENT GLOW - STATIC
+   ============================================================================ */
+
+.grid-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 70vh;  /* Match grid-lines height on desktop */
+  
+  /* Static purple accent - NO ANIMATION */
+  background: radial-gradient(
+    circle 350px at 35% 100%,
+    rgba(168, 85, 247, 0.12) 0%,
+    transparent 60%
+  );
+  
+  /* Performance */
+  contain: paint;
+}
+
+/* ============================================================================
+   RESPONSIVE ADJUSTMENTS - 70VH DESKTOP, SCALED FOR DEVICES
+   ============================================================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .grid-lines {
+    height: 70vh;
+    background-size: 35px 35px;
+    /* Scale down transform slightly for tablet */
+    transform: perspective(900px) rotateX(45deg) rotateZ(0deg) scaleX(2.1) scaleY(2.1);
+  }
+
+  .grid-glow {
+    height: 70vh;
+  }
+
+  .grid-accent {
+    height: 70vh;
+  }
+}
+
+/* iPad / Small Tablet */
+@media (max-width: 768px) {
+  .grid-lines {
+    height: 70vh;
+    background-size: 30px 30px;
+    /* Further scale down for smaller tablet */
+    transform: perspective(900px) rotateX(45deg) rotateZ(0deg) scaleX(1.9) scaleY(1.9);
+  }
+
+  .grid-glow {
+    height: 70vh;
+    background: radial-gradient(
+      ellipse 700px 350px at center bottom,
+      rgba(6, 182, 212, 0.2) 0%,
+      rgba(6, 182, 212, 0.1) 30%,
+      transparent 65%
+    );
+  }
+
+  .grid-accent {
+    height: 70vh;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .grid-lines {
+    height: 70vh;
+    background-size: 25px 25px;
+    /* Further scale down for mobile */
+    transform: perspective(900px) rotateX(45deg) rotateZ(0deg) scaleX(1.6) scaleY(1.6);
+  }
+
+  .grid-glow {
+    height: 70vh;
+    background: radial-gradient(
+      ellipse 500px 280px at center bottom,
+      rgba(6, 182, 212, 0.2) 0%,
+      rgba(6, 182, 212, 0.1) 35%,
+      transparent 70%
+    );
+  }
+
+  .grid-accent {
+    height: 70vh;
+    background: radial-gradient(
+      circle 250px at 35% 100%,
+      rgba(168, 85, 247, 0.12) 0%,
+      transparent 65%
+    );
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-lines,
+  .grid-glow,
+  .grid-accent {
+    animation: none;
+  }
+
+  .grid-lines {
+    opacity: 0.5;
+  }
+
+  .grid-glow {
+    opacity: 0.25;
+  }
+
+  .grid-accent {
+    opacity: 0.12;
+  }
+}
+
+/* ============================================================================
+   HIGH CONTRAST MODE
+   ============================================================================ */
+
+@media (prefers-contrast: high) {
+  .grid-lines {
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        rgba(6, 182, 212, 0.5) 0px,
+        rgba(6, 182, 212, 0.5) 1px,
+        transparent 1px,
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(6, 182, 212, 0.5) 0px,
+        rgba(6, 182, 212, 0.5) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+  }
+
+  .grid-glow {
+    background: radial-gradient(
+      ellipse 900px 400px at center bottom,
+      rgba(6, 182, 212, 0.35) 0%,
+      rgba(6, 182, 212, 0.2) 30%,
+      transparent 65%
+    );
+  }
+}
