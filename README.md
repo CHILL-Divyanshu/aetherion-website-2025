@@ -44,7 +44,7 @@ Aetherion is a dynamic, fully-responsive web experience designed to showcase a l
 ---
 
 ## 📁 Project Structure
-
+```plaintext
 aetherion-dynamic-site/
 │
 ├── src/
@@ -78,7 +78,7 @@ aetherion-dynamic-site/
 ├── package.json
 ├── vite.config.js
 └── README.md
-
+```
 
 ---
 
