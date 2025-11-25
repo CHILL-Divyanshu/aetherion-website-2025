@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -20,8 +19,10 @@ import CommunityPage from "./Pages/Community";
 import AboutPage from "./Pages/About";
 import ContactPage from "./Pages/Contact";
 
-// ✅ Import the new unified detail component
+// Detail Pages
 import GuardianDetail from "./Pages/Guardians/GuardianDetail";
+// Updated path: Assuming Fracture.jsx is moved to the Pages/World folder
+import FracturePage from "./Pages/World/Fracture"; 
 
 function HomePageContent() {
   useEffect(() => {
@@ -71,16 +72,19 @@ function App() {
           }
         />
 
-        {/* Core Pages */}
+        {/* World & Lore */}
         <Route path="/world" element={<WorldPage />} />
+        <Route path="/world/fracture" element={<FracturePage />} />
+
+        {/* Guardians */}
         <Route path="/guardians" element={<GuardiansPage />} />
+        <Route path="/guardians/:id" element={<GuardianDetail />} />
+
+        {/* General Pages */}
         <Route path="/dev-hub" element={<DevHubPage />} />
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-
-        {/* Guardian Detail Page */}
-        <Route path="/guardians/:id" element={<GuardianDetail />} />
       </Routes>
 
       <Footer />

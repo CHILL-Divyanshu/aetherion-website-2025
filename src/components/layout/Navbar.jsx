@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import "../../styles/global.css";
 
+// RESTORED: All original links
 const NAV_LINKS = [
   { name: "News", path: "/#intel", isAnchor: true },
   { name: "World", path: "/world" },
@@ -14,139 +14,138 @@ const NAV_LINKS = [
   { name: "Contact", path: "/contact" },
 ];
 
-const CONTAINER_VARIANTS = {
-  hidden: { opacity: 0, x: "100%" },
-  visible: {
-    opacity: 1,
-    x: "0%",
-    transition: {
-      type: "spring",
-      stiffness: 80,
-      damping: 15,
-      staggerChildren: 0.08,
-    },
-  },
-  exit: { opacity: 0, x: "100%", transition: { stiffness: 100, damping: 20 } },
-};
-
-const LINK_VARIANTS = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-};
-
 function Navbar() {
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const { scrollY } = useScroll();
+  const lastYRef = useRef(0);
+  const location = useLocation();
 
-  const toggleMenu = useCallback(() => setOpen(prev => !prev), []);
-  const closeMenu = useCallback(() => setOpen(false), []);
+  // Smart Scroll Logic (Kept this as it improves UX without changing style)
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = lastYRef.current;
+    if (latest > previous && latest > 150) {
+      setIsHidden(true); // Hide on scroll down
+    } else {
+      setIsHidden(false); // Show on scroll up
+    }
+    lastYRef.current = latest;
+  });
 
+  // Close mobile menu on route change
   useEffect(() => {
-    if (!open) return;
-
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) closeMenu();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [open, closeMenu]);
-
-  const NavLinkItem = ({ link }) => (
-    link.isAnchor ? (
-      <a href={link.path} className="nav-link">
-        {link.name}
-      </a>
-    ) : (
-      <NavLink
-        to={link.path}
-        className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-      >
-        {link.name}
-      </NavLink>
-    )
-  );
-
-  const MobileNavLink = ({ link }) => (
-    <motion.div variants={LINK_VARIANTS}>
-      {link.isAnchor ? (
-        <a
-          href={link.path}
-          onClick={closeMenu}
-          className="text-xl text-gray-200 hover:text-cyan-400 transition-colors"
-        >
-          {link.name}
-        </a>
-      ) : (
-        <NavLink
-          to={link.path}
-          onClick={closeMenu}
-          className={({ isActive }) =>
-            `text-xl ${
-              isActive
-                ? "text-cyan-400 font-semibold"
-                : "text-gray-200 hover:text-cyan-400"
-            } transition-colors`
-          }
-        >
-          {link.name}
-        </NavLink>
-      )}
-    </motion.div>
-  );
+    setIsOpen(false);
+  }, [location]);
 
   return (
-    <nav className="navbar-glow fixed top-4 left-0 right-0 z-50 w-full max-w-6xl mx-auto rounded-xl px-5 py-3 backdrop-blur-md bg-black/40 border border-white/10 shadow-lg">
-      <div className="flex items-center justify-between w-full">
-        <Link to="/" className="logo flex items-center gap-3">
-          <span className="text-2xl font-extrabold gradient-text tracking-wider">
-            AETHERION
-          </span>
-        </Link>
+    <>
+      <motion.nav
+        variants={{
+          visible: { y: 0, opacity: 1 },
+          hidden: { y: -100, opacity: 0 },
+        }}
+        animate={isHidden ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className="fixed top-4 left-0 right-0 z-50 w-full max-w-7xl mx-auto px-4"
+      >
+        {/* RESTORED: Original Glassmorphism Classes */}
+        <div className="navbar-glow relative flex items-center justify-between px-6 py-4 rounded-xl backdrop-blur-md bg-black/40 border border-white/10 shadow-lg transition-all duration-300">
+          
+          {/* RESTORED: Original Text-Only Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <span className="text-2xl font-extrabold gradient-text tracking-wider group-hover:opacity-80 transition-opacity">
+              AETHERION
+            </span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-center gap-8 ml-auto">
-          {NAV_LINKS.map(link => <NavLinkItem key={link.name} link={link} />)}
-        </div>
+          {/* Desktop Navigation - Full List */}
+          <div className="hidden lg:flex items-center gap-6">
+            {NAV_LINKS.map((link) => (
+              <DesktopNavLink key={link.name} link={link} />
+            ))}
+          </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleMenu}
-          aria-label="Toggle Menu"
-          className="flex md:hidden ml-auto p-3 rounded-full bg-black/10 backdrop-blur-sm hover:bg-black/60 transition text-white z-50"
-          aria-expanded={open}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30"
-              onClick={closeMenu}
-            />
-
-            <motion.nav
-              ref={menuRef}
-              variants={CONTAINER_VARIANTS}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="fixed top-0 right-0 h-full w-3/4 sm:w-2/5 bg-black/60 backdrop-blur-xl z-40 flex flex-col justify-center items-center space-y-8 border-l border-cyan-400/20"
+          {/* Mobile Toggle Button */}
+          <div className="flex items-center gap-4 lg:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-200 hover:text-cyan-400 transition-colors p-2"
+              aria-label="Toggle menu"
             >
-              {NAV_LINKS.map(link => <MobileNavLink key={link.name} link={link} />)}
-            </motion.nav>
-          </>
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black/90 backdrop-blur-xl pt-28 px-6"
+          >
+            <div className="flex flex-col gap-8 items-center">
+              {NAV_LINKS.map((link, idx) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                >
+                  <MobileNavLink link={link} onClick={() => setIsOpen(false)} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }
+
+// Helper: Desktop Link with Active State Glow
+const DesktopNavLink = ({ link }) => {
+  // Check if link is active
+  const isActive = useLocation().pathname === link.path;
+  
+  const content = (
+    <span className={`relative text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${isActive ? "text-cyan-400" : "text-gray-300 hover:text-white"}`}>
+      {link.name}
+      {/* The Glow Dot/Line from your original design preference */}
+      {isActive && (
+        <motion.span 
+          layoutId="nav-glow"
+          className="absolute -bottom-2 left-0 right-0 h-[2px] bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        />
+      )}
+    </span>
+  );
+
+  return link.isAnchor ? (
+    <a href={link.path} className="py-2">{content}</a>
+  ) : (
+    <NavLink to={link.path} className="py-2">{content}</NavLink>
+  );
+};
+
+// Helper: Mobile Link
+const MobileNavLink = ({ link, onClick }) => {
+  const content = (
+    <span className="text-2xl font-bold uppercase tracking-widest text-gray-300 hover:text-cyan-400 transition-colors">
+      {link.name}
+    </span>
+  );
+
+  return link.isAnchor ? (
+    <a href={link.path} onClick={onClick}>{content}</a>
+  ) : (
+    <NavLink to={link.path} onClick={onClick}>{content}</NavLink>
+  );
+};
 
 export default Navbar;

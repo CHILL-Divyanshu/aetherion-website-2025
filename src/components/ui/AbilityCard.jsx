@@ -1,91 +1,66 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
-const TYPE_COLORS = {
-  offense: "from-[#ff4d4d] to-[#ffb84d]",
-  defense: "from-[#4deeea] to-[#5f8df8]",
-  utility: "from-[#b84dff] to-[#7d5fff]",
+// Ability Type Config
+const TYPE_CONFIG = {
+  offense: { color: "text-red-400", border: "group-hover:border-red-500/50", bg: "group-hover:shadow-red-500/20" },
+  defense: { color: "text-blue-400", border: "group-hover:border-blue-500/50", bg: "group-hover:shadow-blue-500/20" },
+  utility: { color: "text-purple-400", border: "group-hover:border-purple-500/50", bg: "group-hover:shadow-purple-500/20" },
 };
 
-const AbilityCard = memo(({
-  icon,
-  name,
-  description,
-  type = "offense",
-  aetherCost,
-  image,
-}) => {
-  const typeColor = useMemo(() => TYPE_COLORS[type] || TYPE_COLORS.offense, [type]);
+const AbilityCard = memo(({ icon, name, description, type = "offense", aetherCost }) => {
+  const theme = TYPE_CONFIG[type] || TYPE_CONFIG.offense;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.97 }}
-      className={`relative bg-linear-to-b from-slate-900/70 to-slate-900/40 border border-white/10 
-        rounded-2xl p-6 backdrop-blur-xl cursor-pointer overflow-hidden 
-        transition-all duration-500 hover:shadow-[0_0_25px_rgba(77,238,234,0.3)]`}
+      whileHover={{ y: -5 }}
+      className={`
+        relative group p-1 rounded-xl bg-gradient-to-b from-slate-800 to-black 
+        ${theme.bg} transition-all duration-300
+      `}
     >
-      {/* Optional Background Image */}
-      {image && (
-        <div className="absolute inset-0 opacity-20">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover rounded-2xl"
-            loading="lazy"
-          />
-        </div>
-      )}
-
-      {/* Subtle Gradient Border Glow */}
-      <div
-        className={`absolute inset-0 rounded-2xl bg-linear-to-r ${typeColor} 
-          opacity-30 blur-xl transition-opacity duration-500 group-hover:opacity-60`}
-      />
-
-      {/* Inner Content */}
-      <div className="relative z-10 flex flex-col items-center text-center">
-        {/* Ability Icon */}
-        <div className="mb-4">
-          {icon ? (
-            <img
-              src={icon}
-              alt={name}
-              className="w-14 h-14 object-contain drop-shadow-[0_0_10px_rgba(77,238,234,0.6)]"
-              loading="lazy"
-            />
-          ) : (
-            <Sparkles className="text-cyan-400 w-10 h-10 drop-shadow-[0_0_10px_rgba(77,238,234,0.6)]" />
+      {/* Inner Container */}
+      <div className={`
+        relative h-full bg-slate-900/90 backdrop-blur-xl rounded-lg p-5 border border-white/5 
+        ${theme.border} transition-colors duration-300 flex flex-col items-start
+      `}>
+        
+        {/* Header: Icon + Cost */}
+        <div className="w-full flex justify-between items-start mb-4">
+          <div className="p-3 bg-white/5 rounded-lg border border-white/10 group-hover:scale-110 transition-transform duration-300">
+            {icon ? (
+              <img src={icon} alt={name} className="w-8 h-8 object-contain" />
+            ) : (
+              <Sparkles className={`w-8 h-8 ${theme.color}`} />
+            )}
+          </div>
+          {aetherCost && (
+            <span className="font-mono text-xs text-cyan-400 bg-cyan-900/20 px-2 py-1 rounded border border-cyan-500/30">
+              {aetherCost} AP
+            </span>
           )}
         </div>
 
-        {/* Title */}
-        <h3 className="text-xl font-bold text-white tracking-wide">{name}</h3>
-
-        {/* Aether Cost */}
-        {aetherCost && (
-          <p className="text-sm text-cyan-400/80 mt-1 font-medium">
-            Aether Cost: {aetherCost}
-          </p>
-        )}
-
-        {/* Description */}
-        <p className="text-gray-400 text-sm mt-3 leading-relaxed max-w-xs">
-          {description}
+        {/* Text */}
+        <h4 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+            {name}
+        </h4>
+        <p className="text-sm text-gray-400 leading-relaxed">
+            {description}
         </p>
-      </div>
 
-      {/* Subtle Overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent rounded-2xl pointer-events-none" />
+        {/* Type Indicator (Bottom) */}
+        <div className={`mt-4 text-[10px] uppercase font-bold tracking-widest opacity-60 ${theme.color}`}>
+          // {type} Class
+        </div>
+      </div>
     </motion.div>
   );
 });
 
 AbilityCard.displayName = "AbilityCard";
-
 export default AbilityCard;

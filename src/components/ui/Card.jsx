@@ -7,61 +7,53 @@ const Card = memo(({
   subtitle,
   description,
   onClick,
-  hoverGlow = true,
   className = "",
 }) => {
-  const handleClick = () => onClick?.();
-
   return (
     <motion.div
-      onClick={handleClick}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      className={`relative bg-[#0b0f19]/80 backdrop-blur-md rounded-2xl p-5 cursor-pointer border border-[#1b2333] 
-        shadow-md transition-all duration-300 overflow-hidden group
-        ${hoverGlow ? "hover:shadow-[0_0_25px_#4deeea66]" : ""}
-        ${className}
+      onClick={onClick}
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      whileHover={{ y: -5, borderColor: "rgba(6,182,212,0.4)" }}
+      className={`
+        relative overflow-hidden rounded-xl border border-white/10 bg-slate-900/60 backdrop-blur-md 
+        cursor-pointer transition-colors duration-300 group ${className}
       `}
     >
-      {/* Card Image */}
       {image && (
-        <div className="overflow-hidden rounded-xl mb-4">
-          <motion.img
-            src={image}
-            alt={title || "Card image"}
-            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
+        <div className="relative h-48 overflow-hidden">
+          <img 
+            src={image} 
+            alt={title} 
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-80" />
         </div>
       )}
 
-      {/* Card Text Content */}
-      <div className="text-center">
+      <div className="p-5">
+        {subtitle && (
+          <div className="text-cyan-500 text-xs font-bold uppercase tracking-widest mb-2">
+            {subtitle}
+          </div>
+        )}
         {title && (
-          <h3 className="text-xl font-semibold text-gray-100 mb-1 tracking-wide">
+          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
             {title}
           </h3>
         )}
-        {subtitle && (
-          <p className="text-sm text-[#4deeea] font-medium mb-2 uppercase tracking-wider">
-            {subtitle}
-          </p>
-        )}
         {description && (
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-sm text-gray-400 leading-relaxed">
             {description}
           </p>
         )}
       </div>
-
-      {/* Glow Border Animation */}
-      {hoverGlow && (
-        <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-[#4deeea]/60 transition-colors duration-500 pointer-events-none" />
-      )}
+      
+      {/* Bottom Light Line */}
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </motion.div>
   );
 });
 
 Card.displayName = "Card";
-
 export default Card;
