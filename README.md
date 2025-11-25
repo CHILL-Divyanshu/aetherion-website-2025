@@ -1,6 +1,6 @@
 Aetherion - Official Website
 
-<!-- Optional: Add a banner image path if you have one -->
+![Aetherion Banner](src/assets/images/Aetherion-World-v2.jpg)
 
 Aetherion is an immersive, high-performance website for the upcoming sci-fi/fantasy game Aetherion. Built with modern web technologies, it serves as the central hub for lore, character rosters, development updates, and community engagement.
 
