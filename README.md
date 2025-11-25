@@ -10,7 +10,6 @@ Aetherion is a dynamic, fully-responsive web experience designed to showcase a l
 
 ![World Space](./src/assets/images/World-space-v2.jpg)
 
-
 ---
 
 ## 🚀 Features
