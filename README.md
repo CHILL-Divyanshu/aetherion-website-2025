@@ -98,7 +98,7 @@ aetherion-dynamic-site/
 ## 📦 Installation
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/CHILL-Divyanshu/aetherion-website-2025
 cd aetherion-dynamic-site
 npm install
 npm run dev
