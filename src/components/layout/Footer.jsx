@@ -26,8 +26,7 @@ function Footer() {
   return (
     <footer className="relative pt-20 pb-10 bg-[#02060c] overflow-hidden border-t border-cyan-900/30">
       
-      {/* --- Optimized Background (No Heavy Particles) --- */}
-      {/* A subtle grid texture pattern */}
+      {/* Optimized Background */}
       <div 
         className="absolute inset-0 opacity-20 pointer-events-none" 
         style={{
@@ -35,17 +34,17 @@ function Footer() {
           backgroundSize: '40px 40px'
         }}
       />
-      {/* A top-glow for the "HUD" feel */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent shadow-[0_0_15px_rgba(6,182,212,0.5)]" />
 
-
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        
+        {/* Main Grid: Adjusted for better mobile/tablet layout */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
           
-          {/* Column 1: Brand */}
-          <div className="space-y-6">
+          {/* Column 1: Brand (Full width on mobile, 4 cols on tablet/desktop) */}
+          <div className="md:col-span-12 lg:col-span-4 space-y-6">
             <Link to="/" className="inline-block">
-              <span className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 tracking-wider">
+              <span className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-blue-400 tracking-wider">
                 AETHERION
               </span>
             </Link>
@@ -69,62 +68,67 @@ function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Explore */}
-          <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-6 border-l-2 border-cyan-500 pl-3">
-              Explore
-            </h4>
-            <ul className="space-y-3">
-              {LINKS.explore.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    to={link.path} 
-                    className="text-gray-400 hover:text-cyan-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
-                  >
-                    <span className="w-1 h-1 bg-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Links Container: Split into 2 cols on mobile/tablet */}
+          <div className="md:col-span-6 lg:col-span-4 grid grid-cols-2 gap-8">
+            {/* Column 2: Explore */}
+            <div>
+              <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-6 border-l-2 border-cyan-500 pl-3">
+                Explore
+              </h4>
+              <ul className="space-y-3">
+                {LINKS.explore.map((link) => (
+                  <li key={link.name}>
+                    <Link 
+                      to={link.path} 
+                      className="text-gray-400 hover:text-cyan-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    >
+                      <span className="w-1 h-1 bg-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3: Support */}
+            <div>
+              <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-6 border-l-2 border-cyan-500 pl-3">
+                Support
+              </h4>
+              <ul className="space-y-3">
+                {LINKS.support.map((link) => (
+                  <li key={link.name}>
+                    <Link 
+                      to={link.path} 
+                      className="text-gray-400 hover:text-cyan-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    >
+                       <span className="w-1 h-1 bg-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Column 3: Support */}
-          <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-6 border-l-2 border-cyan-500 pl-3">
-              Support
-            </h4>
-            <ul className="space-y-3">
-              {LINKS.support.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    to={link.path} 
-                    className="text-gray-400 hover:text-cyan-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
-                  >
-                     <span className="w-1 h-1 bg-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Newsletter */}
-          <div className="bg-slate-900/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm">
-            <h4 className="text-white font-bold mb-2">Join the Vanguard</h4>
-            <p className="text-xs text-gray-400 mb-4">
-              Get exclusive in-game rewards and development updates.
-            </p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="w-full bg-black/50 border border-slate-700 text-sm text-white rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors"
-              />
-              <button className="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-cyan-900/20">
-                Sign Up
-              </button>
-            </form>
+          {/* Column 4: Newsletter (Full width on mobile/tablet, 4 cols on desktop) */}
+          <div className="md:col-span-6 lg:col-span-4">
+            <div className="bg-slate-900/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm h-full">
+              <h4 className="text-white font-bold mb-2">Join the Vanguard</h4>
+              <p className="text-xs text-gray-400 mb-4">
+                Get exclusive in-game rewards and development updates.
+              </p>
+              <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="w-full bg-black/50 border border-slate-700 text-sm text-white rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-500 transition-colors"
+                />
+                <button className="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-cyan-900/20">
+                  Sign Up
+                </button>
+              </form>
+            </div>
           </div>
 
         </div>

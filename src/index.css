@@ -1,14 +1,13 @@
 /* ============================================================================
-   AETHERION GLOBAL STYLES - MODERNIZED & OPTIMIZED
+   AETHERION GLOBAL STYLES - UPDATED COLOR PALETTE
    ============================================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rajdhani:wght@500;700&display=swap');
 @import "tailwindcss";
 
-/* If you have these files locally, keep them. If not, the styles below cover them. */
+/* Import Component Styles if they exist locally, otherwise these are covered below */
 @import "./styles/animation.css"; 
 @import "./styles/GridBackground.css";
-/* @import "./styles/global.css"; <--- Merged into this file to reduce requests */
 
 /* ============================================================================
    1. FONTS & VARIABLES
@@ -19,15 +18,37 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  letter-spacing: 0.06em;
+}
+
+.aetherion-font {
+  font-family: "AetherionV1", sans-serif;
+  letter-spacing: 0.06em;
 }
 
 :root {
-  /* Core Palette - Cyberpunk / Space Theme */
-  --color-cyan: #06b6d4;      /* Cyan-500 */
-  --color-cyan-glow: #06b6d4;
-  --color-blue: #3b82f6;      /* Blue-500 */
-  --color-void: #02060c;      /* Deepest Black/Blue */
-  --color-glass: rgba(10, 15, 20, 0.7);
+  /* --- NEW COLOR PALETTE (From Coolors Image) --- */
+  
+  /* Backgrounds */
+  --color-void: #03045E;       /* Deepest background (replacing black) */
+  --color-bg-dark: #023E8A;    /* Secondary background / cards */
+  
+  /* Primary Actions & Highlights */
+  --color-primary-dark: #0077B6; 
+  --color-primary: #0096C7;    /* Main Brand Color */
+  --color-accent: #00B4D8;     /* Hover states / Accents */
+  
+  /* Glows & Effects */
+  --color-cyan: #48CAE4;       /* Light Cyan (Aether Glow) */
+  --color-cyan-glow: #90E0EF;  /* Brightest Glow */
+  
+  /* Text Colors */
+  --color-text-muted: #ADE8F4; /* Paragraphs / Secondary Text */
+  --color-text-light: #CAF0F8; /* Headings / High Contrast Text */
+  
+  /* Legacy / Utility mapping (Ensures existing components update automatically) */
+  --color-blue: #0077B6;
+  --color-glass: rgba(3, 4, 94, 0.7); /* Based on void color */
   
   /* Transitions */
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -50,12 +71,14 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', system-ui, sans-serif; /* Readable Body Font */
-  background-color: var(--color-void);
-  color: #e2e8f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-void); /* Updated Background */
+  color: var(--color-text-light);      /* Updated Text Color */
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Subtle gradient to give depth using the new palette */
+  background-image: radial-gradient(circle at 50% 0%, var(--color-bg-dark), var(--color-void));
 }
 
 /* Headers use the Sci-Fi Font or Rajdhani */
@@ -63,43 +86,44 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Rajdhani', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  color: var(--color-text-light);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-void);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--color-primary-dark);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-cyan);
+  background: var(--color-accent);
 }
 
 /* ============================================================================
    3. COMPONENT: NAVBAR (Optimized Glassmorphism)
    ============================================================================ */
 .navbar-glow {
-  /* The Glass Base */
-  background: linear-gradient(180deg, rgba(6, 12, 16, 0.8), rgba(6, 12, 16, 0.6));
-  backdrop-filter: blur(16px) saturate(1.8); /* Heavy blur for premium feel */
+  /* Updated Glass Base using new palette */
+  background: linear-gradient(180deg, rgba(2, 62, 138, 0.85), rgba(3, 4, 94, 0.85));
+  backdrop-filter: blur(16px) saturate(1.8);
   -webkit-backdrop-filter: blur(16px) saturate(1.8);
   
-  /* The Borders */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.15); /* Slightly brighter top */
+  /* Borders */
+  border: 1px solid rgba(144, 224, 239, 0.1); /* using pale cyan for subtle border */
+  border-top: 1px solid rgba(144, 224, 239, 0.2);
   box-shadow: 
     0 4px 30px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(0, 0, 0, 0.3); /* Inner shadow definition */
+    0 0 0 1px rgba(0, 0, 0, 0.3); 
     
   transition: all 0.3s var(--ease-out-expo);
 }
 
-/* The "Top Light" Effect - simulates a light strip on top */
+/* The "Top Light" Effect */
 .navbar-glow::before {
   content: "";
   position: absolute;
@@ -107,8 +131,8 @@ h1, h2, h3, h4, h5, h6 {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
-  opacity: 0.5;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0.6;
   filter: blur(1px);
 }
 
@@ -119,8 +143,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Hollow Text Effect */
 .stroke-text {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
-  font-family: 'AetherionV1', sans-serif; /* Ensure custom font is used here */
+  -webkit-text-stroke: 1px rgba(144, 224, 239, 0.15); /* using pale cyan opacity */
+  font-family: 'AetherionV1', sans-serif; 
 }
 
 /* Hardware Accelerated Marquee Animations */
@@ -148,39 +172,39 @@ h1, h2, h3, h4, h5, h6 {
    5. UI UTILITIES (Buttons, Cards, Text)
    ============================================================================ */
 
-/* Gradient Text */
+/* Gradient Text using Palette */
 .gradient-text {
-  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  background: linear-gradient(135deg, var(--color-text-light) 0%, var(--color-text-muted) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .gradient-text:hover {
-  background: linear-gradient(135deg, var(--color-cyan), #fff);
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-text-light));
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 /* Glass Card (Used for News, Features) */
 .glass-card {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(2, 62, 138, 0.4); /* Dark Blue with opacity */
+  border: 1px solid rgba(72, 202, 228, 0.1); /* Light Cyan border */
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .glass-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 10px 40px -10px rgba(6, 182, 212, 0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 40px -10px rgba(0, 180, 216, 0.2);
 }
 
 /* Primary Button (CTA) */
 .btn-primary {
   position: relative;
   overflow: hidden;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.5);
+  background: rgba(0, 180, 216, 0.15); /* Accent color low opacity */
+  border: 1px solid var(--color-primary);
   color: var(--color-cyan);
   transition: all 0.3s ease;
 }
@@ -190,14 +214,15 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 0; left: -100%;
   width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(72, 202, 228, 0.4), transparent);
   transition: left 0.5s ease;
 }
 
 .btn-primary:hover {
-  background: rgba(6, 182, 212, 0.2);
-  color: white;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  background: rgba(0, 180, 216, 0.3);
+  color: var(--color-text-light);
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
+  border-color: var(--color-cyan);
 }
 
 .btn-primary:hover::before {
@@ -213,17 +238,17 @@ h1, h2, h3, h4, h5, h6 {
   height: 16px;
   background-color: var(--color-cyan);
   border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid var(--color-text-light);
   cursor: pointer;
-  box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  box-shadow: 0 0 0 0 rgba(72, 202, 228, 0.7);
   animation: pulse-cyan 2s infinite;
   z-index: 20;
 }
 
 @keyframes pulse-cyan {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(72, 202, 228, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(72, 202, 228, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(72, 202, 228, 0); }
 }
 
 .hotspot-tooltip {
@@ -231,8 +256,8 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 150%;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background: rgba(0, 0, 0, 0.9);
-  border: 1px solid var(--color-cyan);
+  background: rgba(3, 4, 94, 0.95); /* Void color */
+  border: 1px solid var(--color-primary);
   padding: 1rem;
   width: 200px;
   opacity: 0;
@@ -240,6 +265,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
   pointer-events: none;
   z-index: 30;
+  color: var(--color-text-muted);
 }
 
 .map-hotspot:hover .hotspot-tooltip,
@@ -255,7 +281,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .stroke-text {
     /* Thinner stroke for mobile readability */
-    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.2); 
+    -webkit-text-stroke: 0.5px rgba(144, 224, 239, 0.3); 
   }
   
   .navbar-glow {
@@ -297,4 +323,21 @@ h1, h2, h3, h4, h5, h6 {
 /* Ensures children preserve 3D space */
 .preserve-3d {
   transform-style: preserve-3d;
+}
+
+/* ============================================================================
+   9. HEADING HIGHLIGHT GRADIENT (LEGEND TEXT)
+   ============================================================================ */
+.legend-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    #00d1e8 35%,
+    #48a7ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }

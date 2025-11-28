@@ -1,80 +1,68 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Zap } from "lucide-react";
 
-// RESTORED: All original links
 const NAV_LINKS = [
-  { name: "News", path: "/#intel", isAnchor: true },
-  { name: "World", path: "/world" },
+  { name: "Intel", path: "/#news", isAnchor: true },
+  { name: "World Map", path: "/world" },
   { name: "Guardians", path: "/guardians" },
-  { name: "Dev Hub", path: "/dev-hub" },
+  { name: "Dev Log", path: "/dev-hub" },
   { name: "Community", path: "/community" },
   { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" },
 ];
 
-function Navbar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-  const lastYRef = useRef(0);
-  const location = useLocation();
 
-  // Smart Scroll Logic (Kept this as it improves UX without changing style)
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = lastYRef.current;
-    if (latest > previous && latest > 150) {
-      setIsHidden(true); // Hide on scroll down
-    } else {
-      setIsHidden(false); // Show on scroll up
-    }
-    lastYRef.current = latest;
+    setScrolled(latest > 50);
   });
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
 
   return (
     <>
       <motion.nav
-        variants={{
-          visible: { y: 0, opacity: 1 },
-          hidden: { y: -100, opacity: 0 },
-        }}
-        animate={isHidden ? "hidden" : "visible"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed top-4 left-0 right-0 z-50 w-full max-w-7xl mx-auto px-4"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? "bg-[#02060c]/90 backdrop-blur-md border-b border-white/10" : "bg-transparent"
+        }`}
       >
-        {/* RESTORED: Original Glassmorphism Classes */}
-        <div className="navbar-glow relative flex items-center justify-between px-6 py-4 rounded-xl backdrop-blur-md bg-black/40 border border-white/10 shadow-lg transition-all duration-300">
-          
-          {/* RESTORED: Original Text-Only Logo */}
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Logo Area */}
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="text-2xl font-extrabold gradient-text tracking-wider group-hover:opacity-80 transition-opacity">
-              AETHERION
-            </span>
+            <div className="w-10 h-10 bg-cyan-600/20 border border-cyan-500/50 flex items-center justify-center transform group-hover:rotate-45 transition-transform duration-500">
+              <Zap className="w-6 h-6 text-cyan-400" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-black tracking-tighter text-white leading-none">
+                AETHERION
+              </span>
+              <span className="text-[10px] font-bold tracking-[0.3em] text-cyan-500 uppercase">
+                System v2.0
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation - Full List */}
-          <div className="hidden lg:flex items-center gap-6">
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <DesktopNavLink key={link.name} link={link} />
             ))}
           </div>
 
-          {/* Mobile Toggle Button */}
-          <div className="flex items-center gap-4 lg:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-200 hover:text-cyan-400 transition-colors p-2"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <Link to="/play" className="relative px-6 py-2 bg-white text-black font-black uppercase tracking-widest text-xs hover:bg-cyan-400 transition-colors clip-path-slant">
+              Play Now
+            </Link>
           </div>
+
+          {/* Mobile Toggle */}
+          <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-white">
+            {isOpen ? <X /> : <Menu />}
+          </button>
         </div>
       </motion.nav>
 
@@ -82,21 +70,14 @@ function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/90 backdrop-blur-xl pt-28 px-6"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl pt-24 px-8"
           >
-            <div className="flex flex-col gap-8 items-center">
-              {NAV_LINKS.map((link, idx) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                >
-                  <MobileNavLink link={link} onClick={() => setIsOpen(false)} />
-                </motion.div>
+            <div className="flex flex-col gap-6">
+              {NAV_LINKS.map((link) => (
+                <MobileNavLink key={link.name} link={link} onClick={() => setIsOpen(false)} />
               ))}
             </div>
           </motion.div>
@@ -104,48 +85,25 @@ function Navbar() {
       </AnimatePresence>
     </>
   );
-}
+};
 
-// Helper: Desktop Link with Active State Glow
 const DesktopNavLink = ({ link }) => {
-  // Check if link is active
   const isActive = useLocation().pathname === link.path;
-  
-  const content = (
-    <span className={`relative text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${isActive ? "text-cyan-400" : "text-gray-300 hover:text-white"}`}>
+  return (
+    link.isAnchor ? 
+    <a href={link.path} className={`px-5 py-2 text-sm font-bold uppercase tracking-widest transition-all hover:text-cyan-400 ${isActive ? "text-cyan-400 border-b-2 border-cyan-400" : "text-gray-400"}`}>
       {link.name}
-      {/* The Glow Dot/Line from your original design preference */}
-      {isActive && (
-        <motion.span 
-          layoutId="nav-glow"
-          className="absolute -bottom-2 left-0 right-0 h-[2px] bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        />
-      )}
-    </span>
-  );
-
-  return link.isAnchor ? (
-    <a href={link.path} className="py-2">{content}</a>
-  ) : (
-    <NavLink to={link.path} className="py-2">{content}</NavLink>
+    </a> :
+    <NavLink to={link.path} className={({ isActive }) => `px-5 py-2 text-sm font-bold uppercase tracking-widest transition-all hover:text-cyan-400 ${isActive ? "text-cyan-400 border-b-2 border-cyan-400" : "text-gray-400"}`}>
+      {link.name}
+    </NavLink>
   );
 };
 
-// Helper: Mobile Link
-const MobileNavLink = ({ link, onClick }) => {
-  const content = (
-    <span className="text-2xl font-bold uppercase tracking-widest text-gray-300 hover:text-cyan-400 transition-colors">
-      {link.name}
-    </span>
-  );
-
-  return link.isAnchor ? (
-    <a href={link.path} onClick={onClick}>{content}</a>
-  ) : (
-    <NavLink to={link.path} onClick={onClick}>{content}</NavLink>
-  );
-};
+const MobileNavLink = ({ link, onClick }) => (
+  <NavLink to={link.path} onClick={onClick} className="text-3xl font-black text-white uppercase tracking-tighter hover:text-cyan-400">
+    {link.name}
+  </NavLink>
+);
 
 export default Navbar;

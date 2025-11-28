@@ -1,188 +1,105 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
-import PageHeader from "@/components/layout/PageHeader";
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import PageHeader from "../components/layout/PageHeader";
+import Button from "../components/ui/Button";
 
-const SOCIAL_PLATFORMS = [
-  {
-    name: "Discord",
-    description:
-      "Join our main community hub for direct chat with the devs and other fans.",
-    link: "#",
-  },
-  {
-    name: "X / Twitter",
-    description: "For real-time updates, sneak peeks, and daily content.",
-    link: "#",
-  },
-  {
-    name: "YouTube",
-    description: "Watch trailers, dev diaries, and gameplay showcases.",
-    link: "#",
-  },
-  {
-    name: "Instagram",
-    description: "A visual journey through the art and world of Aetherion.",
-    link: "#",
-  },
+const SOCIALS = [
+  { name: "Discord", desc: "Chat with devs & fans", color: "border-indigo-500/50 text-indigo-400" },
+  { name: "Twitter", desc: "Real-time updates", color: "border-sky-500/50 text-sky-400" },
+  { name: "YouTube", desc: "Dev diaries & trailers", color: "border-red-500/50 text-red-400" },
+  { name: "Instagram", desc: "Visual arts showcase", color: "border-pink-500/50 text-pink-400" },
 ];
-
-const FAN_ART_PLACEHOLDERS = [
-  "Fan art of Valerius",
-  "A landscape painting",
-  "A weapon design",
-  "Character sketch",
-];
-
-const usePageObserver = () => {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const sections = document.querySelectorAll(".fade-in-section");
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => {
-        if (section) observer.unobserve(section);
-      });
-      observer.disconnect();
-    };
-  }, []);
-};
 
 const CommunityPage = () => {
-  const ideaInputRef = useRef(null);
-  const [ideaOutput, setIdeaOutput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [idea, setIdea] = useState("");
+  const [generated, setGenerated] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  usePageObserver();
-
-  const handleGenerateIdea = useCallback(() => {
-    const idea = ideaInputRef.current?.value?.trim();
-    if (!idea) return;
-
-    setIdeaOutput(`<p class="p-4">Forging your concept...</p>`);
-    setIsLoading(true);
-
-    const timeoutId = setTimeout(() => {
-      const concept = `
-        <h4 class="text-xl font-semibold text-cyan-400 mb-2">The Sentinel's Echo</h4>
-        <p>A shield forged from a fallen Guardian's memory. It starts weak, but with every blow it successfully blocks, it "learns" the attack, gaining a shimmering, ethereal layer of that damage type. After absorbing enough energy, the wielder can unleash the stored power in a devastating nova, its element reflecting the last attack type learned.</p>
-      `;
-      setIdeaOutput(concept);
-      setIsLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
+  const handleForge = () => {
+    if (!idea.trim()) return;
+    setLoading(true);
+    setGenerated(null);
+    
+    // Simulate AI "Thinking" time
+    setTimeout(() => {
+      setLoading(false);
+      setGenerated({
+        title: "The Sentinel's Echo",
+        desc: "A shield forged from a fallen Guardian's memory. It absorbs kinetic energy and releases it as a devastating nova."
+      });
+    }, 2000);
+  };
 
   return (
     <>
-      {/* Loading Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/80 flex items-center justify-center z-100 transition-opacity duration-300 ${
-          isLoading ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="w-16 h-16 border-4 border-t-transparent border-cyan-400 rounded-full animate-spin" />
-      </div>
-
       <PageHeader
-        title="Join the Community"
-        subtitle="Aetherion is built with its players. Connect with us, share your creativity, and become part of the journey."
-        marqueeText="COMMUNITY HUB"
+        title="Community Hub"
+        subtitle="Connect, create, and shape the world of Aetherion."
+        marqueeText="JOIN THE VANGUARD"
       />
 
-      <main className="bg-linear-to-b from-slate-950 via-gray-900 to-slate-800 py-20">
-        <div className="container mx-auto px-6 lg:px-10">
-          {/* SOCIALS */}
-          <section id="socials" className="mb-28 fade-in-section text-center">
-            <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">
-              Connect With Us
-            </h2>
-            <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
-              Follow our development, join the conversation, and be the first to
-              see exclusive content.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {SOCIAL_PLATFORMS.map((platform) => (
-                <Card key={platform.name} className="p-8 text-center">
-                  <h3 className="text-2xl font-bold text-cyan-400">
-                    {platform.name}
-                  </h3>
-                  <p className="text-gray-400 mt-2">{platform.description}</p>
-                  <a
-                    href={platform.link}
-                    className="inline-block mt-4 text-sm text-cyan-300 hover:text-cyan-200 transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Visit →
-                  </a>
-                </Card>
-              ))}
+      <main className="bg-black py-20 text-gray-100 overflow-hidden">
+        <div className="container mx-auto px-6 max-w-6xl">
+          
+          {/* 1. Social Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
+            {SOCIALS.map((social, idx) => (
+              <motion.a
+                key={social.name}
+                href="#"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className={`p-8 rounded-xl bg-slate-900/50 backdrop-blur border ${social.color} hover:bg-white/5 transition-all cursor-pointer group`}
+              >
+                <h3 className="text-2xl font-black uppercase tracking-tighter text-white group-hover:text-cyan-400 transition-colors">
+                  {social.name}
+                </h3>
+                <p className="text-sm text-gray-400 mt-2">{social.desc}</p>
+              </motion.a>
+            ))}
+          </div>
+
+          {/* 2. Idea Forge */}
+          <section className="relative mb-32">
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 blur-3xl -z-10" />
+            
+            <div className="text-center mb-10">
+              <h2 className="text-4xl font-bold text-white mb-4">The Idea Forge</h2>
+              <p className="text-gray-400">Submit a prompt, and let our system generate a game concept.</p>
             </div>
-          </section>
 
-          {/* SHAPE THE WORLD */}
-          <section id="shape-the-world" className="mb-28 fade-in-section text-center">
-            <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">
-              Shape The World
-            </h2>
-            <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
-              Your creativity can inspire the future of Aetherion. Submit an idea
-              and let our AI help forge it into a game-ready concept.
-            </p>
-
-            <div className="max-w-3xl mx-auto bg-black/20 p-8 rounded-xl shadow-xl">
-              <div className="flex flex-col md:flex-row gap-3 mb-6">
+            <div className="max-w-2xl mx-auto bg-slate-900/80 border border-white/10 p-8 rounded-2xl shadow-2xl">
+              <div className="flex gap-4 mb-6">
                 <input
-                  ref={ideaInputRef}
                   type="text"
-                  placeholder="e.g., A sword that drinks starlight"
-                  className="grow bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all"
+                  value={idea}
+                  onChange={(e) => setIdea(e.target.value)}
+                  placeholder="e.g. A sword made of starlight..."
+                  className="flex-1 bg-black/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 focus:outline-none"
                 />
-                <Button onClick={handleGenerateIdea}>✨ Forge My Idea</Button>
+                <Button onClick={handleForge} disabled={loading}>
+                  {loading ? "Forging..." : "Generate"}
+                </Button>
               </div>
 
-              <div
-                className="bg-gray-900/40 border border-gray-700 rounded-lg p-4 text-gray-300 text-left"
-                dangerouslySetInnerHTML={{ __html: ideaOutput }}
-              />
+              <AnimatePresence mode="wait">
+                {generated && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-black/40 border border-cyan-500/30 p-6 rounded-xl"
+                  >
+                    <h4 className="text-xl font-bold text-cyan-400 mb-2">{generated.title}</h4>
+                    <p className="text-gray-300">{generated.desc}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </section>
 
-          {/* FAN ART SHOWCASE */}
-          <section id="fan-art" className="fade-in-section text-center">
-            <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">
-              Community Showcase
-            </h2>
-            <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
-              We're constantly amazed by your creativity. Share your art with{" "}
-              <span className="text-cyan-400 font-semibold">#AetherionArt</span>!
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {FAN_ART_PLACEHOLDERS.map((altText) => (
-                <div
-                  key={altText}
-                  className="bg-gray-800/40 rounded-lg h-[250px] flex items-center justify-center border border-gray-700 hover:border-cyan-400 transition"
-                >
-                  <span className="text-gray-500 italic text-sm">{altText}</span>
-                </div>
-              ))}
-            </div>
-          </section>
         </div>
       </main>
     </>

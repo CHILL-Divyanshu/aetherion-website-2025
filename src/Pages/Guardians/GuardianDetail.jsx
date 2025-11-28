@@ -18,7 +18,7 @@ const GuardianDetail = () => {
   const navigate = useNavigate();
 
   const guardian = useMemo(() => guardians.find((g) => g.id === id), [id]);
-
+  
   if (!guardian) return <div className="text-white p-20">Guardian Not Found</div>;
 
   const theme = guardian.theme;

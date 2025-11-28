@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import GuardianCard from "../../components/ui/GuardianCard"; // Assuming this exists from previous steps
+import GuardianCard from "../../components/ui/GuardianCard";
 import guardiansData from "../../data/guardians.json";
 
 // Extract unique roles for the filter
@@ -33,9 +33,14 @@ const GuardiansIndex = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600"
-              style={{ fontFamily: "AetherionV1, sans-serif", textShadow: "0 0 40px rgba(255,255,255,0.1)" }}>
-            The Vanguard
+          {/* FIX: Removed text-transparent and bg-clip-text. Used solid white with a strong cyan text-shadow glow. */}
+          <h1 className="text-5xl md:text-7xl font-black mb-6 text-white uppercase tracking-tighter"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            style={{ fontFamily: "AetherionV1, sans-serif" }}
+          >
+            The <span className="inline-block legend-gradient pr-2 [text-rendering:optimizeLegibility]">Vanguard</span>
           </h1>
           <p className="text-cyan-500 font-mono text-sm uppercase tracking-[0.3em]">
             Select your Guardian

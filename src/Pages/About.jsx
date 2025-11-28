@@ -1,123 +1,102 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Button from "../components/ui/Button"; 
 
 const ABOUT_CONTENT = {
   title: "About Aetherion",
-  subtitle:
-    "Forged from imagination, built through code, and powered by passion — Aetherion is more than a project; it's a living world shaped by creativity, technology, and community.",
-  heroTitle: "A World Reborn in Code",
+  subtitle: "Forged from imagination, built through code, and powered by passion.",
+  heroTitle: "A World Reborn",
   paragraphs: [
-    "Aetherion began as a vision — a realm where art, storytelling, and engineering collide. Every guardian, every region, and every fragment of Aether has been carefully crafted by hand and code. We believe worlds should feel alive, immersive, and meaningful.",
-    "Our mission is simple: to create an experience that blurs the line between a game and a story. Built with modern technologies like React, Node.js, and MongoDB, Aetherion is designed to evolve — just like the players who enter it.",
+    "Aetherion began as a vision — a realm where art, storytelling, and engineering collide. Every guardian, every region, and every fragment of Aether has been carefully crafted by hand and code.",
+    "Our mission is simple: to create an experience that blurs the line between a game and a story. Built with modern web technologies, Aetherion is designed to evolve — just like the players who enter it.",
   ],
-  philosophyTitle: "Our Philosophy",
-  philosophyText:
-    "We believe games aren't just played — they're felt. Every pixel, every mechanic, and every heartbeat of this world is built to inspire wonder and connection. Aetherion is our way of reminding you that magic still exists — if you dare to create it.",
   image: "/src/assets/images/World-space-v2.jpg",
 };
 
 const About = () => {
   return (
-    <section className="relative min-h-screen bg-linear-to-b from-black via-gray-950 to-gray-900 text-gray-100 overflow-hidden">
-      {/* Ambient lighting effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-600/20 blur-3xl rounded-full" />
-        <div className="absolute bottom-24 right-32 w-96 h-96 bg-purple-700/20 blur-3xl rounded-full" />
-      </div>
+    <section className="relative min-h-screen bg-black text-gray-100 overflow-hidden">
+      {/* Ambient Background */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black z-0" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-24"
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
-            {ABOUT_CONTENT.title.split(" ")[0]}{" "}
-            <span className="text-cyan-400">{ABOUT_CONTENT.title.split(" ")[1]}</span>
+          <h1 className="text-5xl md:text-7xl font-black mb-6 text-white uppercase tracking-tighter"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            style={{ fontFamily: "AetherionV1, sans-serif" }}
+          >
+            Project <span className="inline-block legend-gradient pr-2 [text-rendering:optimizeLegibility]">Aetherion</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
             {ABOUT_CONTENT.subtitle}
           </p>
         </motion.div>
 
-        {/* Two-column content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          {/* Left: Image */}
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left: Interactive Image Frame */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-700/50"
+            className="relative group"
           >
-            <img
-              src={ABOUT_CONTENT.image}
-              alt="Aetherion Concept Art"
-              className="w-full h-[450px] object-cover rounded-2xl transform hover:scale-105 transition-transform duration-700"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gray-900">
+              <img
+                src={ABOUT_CONTENT.image}
+                alt="Concept Art"
+                className="w-full h-[500px] object-cover transform transition-transform duration-[20s] hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+              
+              {/* Floating Badge */}
+              <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-lg">
+                <p className="text-xs text-cyan-400 font-bold uppercase tracking-widest">Status: In Development</p>
+              </div>
+            </div>
           </motion.div>
 
-          {/* Right: Text */}
+          {/* Right: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-cyan-300">
+            <h2 className="text-4xl font-bold text-white border-l-4 border-cyan-500 pl-6">
               {ABOUT_CONTENT.heroTitle}
             </h2>
-            {ABOUT_CONTENT.paragraphs.map((paragraph, index) => (
-              <p key={index} className="text-gray-400 leading-relaxed text-lg">
-                {paragraph}
-              </p>
-            ))}
+            
+            <div className="space-y-6 text-lg text-gray-400 leading-relaxed">
+              {ABOUT_CONTENT.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
 
-            <div className="pt-6">
-              <Link
-                to="/community"
-                className="inline-flex items-center gap-3 bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-xl text-base shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:gap-4 group"
-              >
-                <span>Join the Community</span>
-                <svg
-                  className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
+            <div className="pt-6 flex gap-4">
+              <Link to="/community">
+                <Button variant="primary" size="lg">Join the Community</Button>
+              </Link>
+              <Link to="/dev-hub">
+                <Button variant="ghost" size="lg">View Roadmap</Button>
               </Link>
             </div>
           </motion.div>
         </div>
-
-        {/* Philosophy Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-24 text-center max-w-3xl mx-auto"
-        >
-          <h3 className="text-3xl font-bold text-white mb-4">
-            {ABOUT_CONTENT.philosophyTitle}
-          </h3>
-          <p className="text-gray-400 text-lg leading-relaxed">
-            {ABOUT_CONTENT.philosophyText}
-          </p>
-        </motion.div>
       </div>
     </section>
   );

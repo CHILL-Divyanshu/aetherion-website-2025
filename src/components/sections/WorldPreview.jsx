@@ -4,65 +4,66 @@ import Button from "../ui/Button";
 
 const WorldPreview = () => {
   return (
-    <section className="py-32 bg-black relative overflow-hidden">
-      {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-900/10 blur-[100px] pointer-events-none" />
+    <section className="py-32 bg-[#02060c] relative overflow-hidden border-t border-white/5">
+      {/* Subtle Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none opacity-30" />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
+        <div className="flex flex-col lg:flex-row-reverse items-center gap-20">
           
           {/* Text Content */}
           <motion.div 
             className="lg:w-1/2"
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-cyan-400 font-bold tracking-[0.2em] uppercase text-sm">Sector Analysis</span>
-            <h2 className="text-5xl md:text-6xl font-black text-white mt-4 mb-6 leading-[1.1]" style={{ fontFamily: "AetherionV1, sans-serif" }}>
-              THE SHATTERED <br /> ISLES
+            <div className="mb-6">
+               <span className="text-cyan-500 font-bold tracking-[0.2em] uppercase text-sm">Sector Analysis</span>
+               <div className="h-1 w-12 bg-cyan-500 mt-2" />
+            </div>
+            
+            <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-none tracking-tight">
+              THE SHATTERED <br /> 
+              <span className="text-slate-500">ISLES</span>
             </h2>
-            <p className="text-xl text-gray-400 leading-relaxed mb-8">
-              From the radiant peaks of the Crystal Spires to the abyssal ruins of the Sunken City. Every corner is alive with mystery.
+            
+            <p className="text-xl text-slate-400 leading-relaxed mb-10">
+              From the radiant peaks of the Crystal Spires to the abyssal ruins of the Sunken City. Every corner is alive with mystery, danger, and ancient technology.
             </p>
             
-            <div className="flex gap-4">
-              <Button>Explore World Map</Button>
-            </div>
+            <Button>Explore Interactive Map</Button>
           </motion.div>
 
-          {/* Visual: Map with Radar Effect */}
+          {/* Visual: Radar Map */}
           <motion.div 
-            className="lg:w-1/2 relative"
+            className="lg:w-1/2 relative flex justify-center"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative rounded-full aspect-square max-w-md mx-auto border border-white/10 bg-slate-900/50 p-4">
-              <div className="absolute inset-0 rounded-full border border-cyan-500/20 animate-pulse" />
-              <img 
-                src="/src/assets/images/World-space-v2.jpg" 
-                alt="World" 
-                className="w-full h-full object-cover rounded-full opacity-80 grayscale hover:grayscale-0 transition-all duration-700" 
-              />
+            <div className="relative w-full max-w-lg aspect-square">
+              {/* Rotating Ring 1 */}
+              <div className="absolute inset-0 border border-dashed border-white/10 rounded-full animate-[spin_30s_linear_infinite]" />
+              {/* Rotating Ring 2 */}
+              <div className="absolute inset-8 border border-cyan-500/20 rounded-full border-t-transparent animate-[spin_20s_linear_infinite_reverse]" />
               
-              {/* Radar Sweep Animation */}
-              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                 <div className="w-1/2 h-1/2 bg-gradient-to-br from-cyan-500/40 to-transparent absolute top-0 left-0 origin-bottom-right animate-spin-slow" />
+              {/* Main Map Circle */}
+              <div className="absolute inset-16 rounded-full overflow-hidden border-4 border-[#0f172a] shadow-[0_0_60px_rgba(6,182,212,0.2)] bg-[#0f172a]">
+                <img 
+                  src="/src/assets/images/World-space-v2.jpg" 
+                  alt="World Map" 
+                  className="w-full h-full object-cover opacity-80 hover:scale-110 transition-transform duration-1000" 
+                />
+                {/* Radar Scan Line */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent h-full w-full animate-[scan_4s_ease-in-out_infinite]" />
               </div>
             </div>
-            
-            {/* Decorative Orbit Rings */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-dashed border-white/10 rounded-full animate-spin-reverse-slow pointer-events-none" />
           </motion.div>
         </div>
       </div>
-      
-      <style>{`
-        .animate-spin-slow { animation: spin 8s linear infinite; }
-        .animate-spin-reverse-slow { animation: spin 20s linear infinite reverse; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-      `}</style>
     </section>
   );
 };
