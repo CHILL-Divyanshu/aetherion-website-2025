@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Layout Components
-import Navbar from "./components/layout/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 
 // Home Page Sections
@@ -11,18 +11,20 @@ import NewsSection from "./components/sections/NewsSection";
 import GuardiansPreview from "./components/sections/GuardiansPreview";
 import WorldPreview from "./components/sections/WorldPreview";
 
+//World Pages
+import WorldPage from "./Pages/World/WorldIndex";
+import FracturePage from "@/Pages/World/Fracture"; 
+import BossDetail from "./Pages/World/BossDetail";
+
+//Guardian Pages
+import GuardiansPage from "./Pages/Guardians/GuardianIndex";
+import GuardianDetail from "./Pages/Guardians/GuardianDetail";
+
 // Core Pages
-import WorldPage from "./Pages/World/Index";
-import GuardiansPage from "./Pages/Guardians/Index";
 import DevHubPage from "./Pages/DevHub";
 import CommunityPage from "./Pages/Community";
 import AboutPage from "./Pages/About";
 import ContactPage from "./Pages/Contact";
-
-// Detail Pages
-import GuardianDetail from "./Pages/Guardians/GuardianDetail";
-// Updated path: Assuming Fracture.jsx is moved to the Pages/World folder
-import FracturePage from "./Pages/World/Fracture"; 
 
 function HomePageContent() {
   useEffect(() => {
@@ -75,6 +77,7 @@ function App() {
         {/* World & Lore */}
         <Route path="/world" element={<WorldPage />} />
         <Route path="/world/fracture" element={<FracturePage />} />
+        <Route path="/bosses/:id" element={<BossDetail />} />
 
         {/* Guardians */}
         <Route path="/guardians" element={<GuardiansPage />} />

@@ -24,7 +24,7 @@ const LINKS = {
 
 function Footer() {
   return (
-    <footer className="relative pt-20 pb-10 bg-[#02060c] overflow-hidden border-t border-cyan-900/30">
+    <footer className="relative pt-10 pb-10 bg-[#02060c] overflow-hidden border-t border-cyan-900/30">
       
       {/* Optimized Background */}
       <div 
@@ -39,7 +39,7 @@ function Footer() {
       <div className="container mx-auto px-6 relative z-10">
         
         {/* Main Grid: Adjusted for better mobile/tablet layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-10">
           
           {/* Column 1: Brand (Full width on mobile, 4 cols on tablet/desktop) */}
           <div className="md:col-span-12 lg:col-span-4 space-y-6">

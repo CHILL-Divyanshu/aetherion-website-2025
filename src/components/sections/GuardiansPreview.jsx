@@ -31,7 +31,7 @@ const StatBar = ({ label, value }) => (
 
 const GuardiansPreview = () => {
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-20 overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
@@ -45,9 +45,9 @@ const GuardiansPreview = () => {
           >
             <div className="relative rounded-lg overflow-hidden border border-white/5 bg-slate-900/50 shadow-2xl">
                <Corner className="top-0 left-0" />
-               <Corner className="top-0 right-0 rotate-90" />
-               <Corner className="bottom-0 left-0 -rotate-90" />
-               <Corner className="bottom-0 right-0 rotate-180" />
+               <Corner className="top-0 right-0 rotate-45" />
+               <Corner className="bottom-0 left-0 -rotate-45" />
+               <Corner className="bottom-0 right-0 rotate-90" />
                
                <img
                 src="/src/assets/images/guardians/valerius.jpg" 

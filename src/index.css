@@ -30,8 +30,8 @@
   /* --- NEW COLOR PALETTE (From Coolors Image) --- */
   
   /* Backgrounds */
-  --color-void: #03045E;       /* Deepest background (replacing black) */
-  --color-bg-dark: #023E8A;    /* Secondary background / cards */
+  --color-void: #020214;       /* Deepest background (replacing black) */
+  --color-bg-dark: #030c17;    /* Secondary background / cards */
   
   /* Primary Actions & Highlights */
   --color-primary-dark: #0077B6; 
@@ -139,6 +139,10 @@ h1, h2, h3, h4, h5, h6 {
 /* ============================================================================
    4. COMPONENT: PAGE HEADER (Marquee & Stroke Text)
    ============================================================================ */
+.marquee-row {
+  display: flex;
+  width: fit-content;
+}
 
 /* Hollow Text Effect */
 .stroke-text {

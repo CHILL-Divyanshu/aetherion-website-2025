@@ -19,19 +19,21 @@ const TechCorners = () => (
   </>
 );
 
-const GuardianCard = memo(({ id, image, name, title, description, element, power }) => {
+// 1. Updated Component with 'basePath' Prop
+const GuardianCard = memo(({ id, image, name, title, description, element, power, basePath = "/guardians" }) => {
   return (
-    <Link to={`/guardians/${id}`} className="block h-full">
+    // 2. Dynamic Link using basePath
+    <Link to={`${basePath}/${id}`} className="block h-full">
       <motion.div
         initial="rest"
         whileHover="hover"
         animate="rest"
-        className="relative h-full bg-[#080c14] border border-white/5 group overflow-hidden cursor-pointer flex flex-col p-1" // Added p-1 for spacing
+        className="relative h-full bg-[#080c14] border border-white/5 group overflow-hidden cursor-pointer flex flex-col p-1"
       >
-        {/* Render the new Corners */}
+        {/* Render the Corners */}
         <TechCorners />
 
-        {/* 1. Background Image */}
+        {/* 3. Background Image & Visuals */}
         <div className="relative w-full h-64 overflow-hidden rounded-sm mt-2 mx-auto w-[95%]">
           <motion.img
             src={image}
@@ -50,7 +52,7 @@ const GuardianCard = memo(({ id, image, name, title, description, element, power
           </div>
         </div>
 
-        {/* 2. Text Content */}
+        {/* 4. Text Content */}
         <div className="p-5 relative z-10 flex flex-col grow text-left">
            <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter mb-0">
               {name}

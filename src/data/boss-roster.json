@@ -1,0 +1,214 @@
+{
+  "bosses": [
+    {
+      "id": "vorgath",
+      "name": "Vorgath, the Pyreblight Colossus",
+      "titleGradient": {
+        "start": "rgba(255, 180, 150, 0.95)",
+        "middle": "#ff4b1f",
+        "end": "#ff0000"
+      },
+      "element": ["Fire", "Corruption"],
+      "power_level": 9,
+      "short_description": "A colossal fire-corrupted titan born from a cursed mountain guardian.",
+      "large_description": "Vorgath was once the guardian spirit of a mighty mountain chain until an ancient curse from a fallen fire deity twisted it into a vessel of ruin. Now it wanders volcanic wastelands, driven only by rage and a need to purify the world in molten decay.",
+      "weakness": [
+        "Cooldown periods expose its core.",
+        "Rapid cooling makes it brittle."
+      ],
+      "abilities": [
+        "Molten Cataclysm",
+        "Corrosive Flameheart",
+        "Charred Rebirth"
+      ],
+      "minions": [
+        {
+          "id": "emberlash_hounds",
+          "name": "Emberlash Hounds",
+          "power_level": 5,
+          "abilities": [
+            "Leap attacks",
+            "Burning slag trails",
+            "Pack coordination"
+          ],
+          "weakness": [
+            "Weak to water-based damage",
+            "Easily controlled by crowd control"
+          ],
+          "description": "Former mountain wolves reshaped into flaming horrors by Vorgath’s corrupted aura."
+        },
+        {
+          "id": "pyreborne_imps",
+          "name": "Pyreborne Imps",
+          "power_level": 3,
+          "abilities": [
+            "Throws volatile fire globes",
+            "Explodes on death"
+          ],
+          "weakness": [
+            "Very low health",
+            "Panic when separated from Vorgath"
+          ],
+          "description": "Fissure-dwelling elementals who worship Vorgath as a living volcano-god."
+        }
+      ]
+    },
+
+    {
+      "id": "thornmaul",
+      "name": "Thornmaul, the Verdant Warden",
+      "titleGradient": {
+        "start": "rgba(210, 255, 210, 0.95)",
+        "middle": "#00b06b",
+        "end": "#0f5f3d"
+      },
+      "element": ["Earth", "Life"],
+      "power_level": 8,
+      "short_description": "An ancient stone guardian awakened only when nature itself is threatened.",
+      "large_description": "Carved from ancient cliffs and blessed by the Worldtree, Thornmaul is the last remaining sentinel of an era where nature ruled unchallenged. It awakens only when balance is disturbed, defending its domain with patience and overwhelming force.",
+      "weakness": [
+        "Vulnerable to fire",
+        "Weak to corrosive magic",
+        "Sluggish when its roots are cut"
+      ],
+      "abilities": [
+        "Gaia’s Grasp",
+        "Stonehide Renewal",
+        "Bloomstrike"
+      ],
+      "minions": [
+        {
+          "id": "glimmerroot_spritelings",
+          "name": "Glimmerroot Spritelings",
+          "power_level": 4,
+          "abilities": [
+            "Heal Thornmaul",
+            "Create thorn barriers"
+          ],
+          "weakness": [
+            "Easily scattered by loud bursts",
+            "Weak to fire"
+          ],
+          "description": "Mischievous saplings animated by Thornmaul’s life force."
+        },
+        {
+          "id": "barkhorn_stags",
+          "name": "Barkhorn Stags",
+          "power_level": 5,
+          "abilities": [
+            "Powerful charge attacks",
+            "Nature buffs for allies"
+          ],
+          "weakness": [
+            "Weak to ranged attacks"
+          ],
+          "description": "Forest guardians who willingly serve Thornmaul as protectors of sacred grounds."
+        }
+      ]
+    },
+
+    {
+      "id": "krakos",
+      "name": "Krakos, the Abyssal Terror",
+      "titleGradient": {
+        "start": "rgba(180, 210, 255, 0.95)",
+        "middle": "#005c9f",
+        "end": "#001f3f"
+      },
+      "element": ["Water", "Void"],
+      "power_level": 9,
+      "short_description": "A corrupted ocean deity remnant that rises from tectonic rifts.",
+      "large_description": "Krakos is the final remnant of an ancient ocean deity drowned in its own corruption. It emerges when tectonic rifts tear open beneath the sea, feeding on drowned memories, cursed relics, and any creature foolish enough to drift near its abyssal vortex.",
+      "weakness": [
+        "Electricity paralyzes limbs",
+        "Sluggish on dry terrain"
+      ],
+      "abilities": [
+        "Maelstrom Dominion",
+        "Abyssal Shriek",
+        "Tidal Rend"
+      ],
+      "minions": [
+        {
+          "id": "abyssspawn_eels",
+          "name": "Abyssspawn Eels",
+          "power_level": 4,
+          "abilities": [
+            "Electric bites",
+            "Swarm attacks",
+            "Water-stealth strikes"
+          ],
+          "weakness": [
+            "Fragile on land"
+          ],
+          "description": "Twisted sea serpents birthed in Krakos’ swirling whirlpools."
+        },
+        {
+          "id": "drowned_myrmidons",
+          "name": "Drowned Myrmidons",
+          "power_level": 6,
+          "abilities": [
+            "Water shields",
+            "Trident charges",
+            "Synchronized formation attacks"
+          ],
+          "weakness": [
+            "Light magic dissolves their cursed shells"
+          ],
+          "description": "Souls of ancient warriors bound eternally to Krakos' abyssal hunger."
+        }
+      ]
+    },
+
+    {
+      "id": "xyralon",
+      "name": "Xyralon, the Riftshard Abomination",
+      "titleGradient": {
+        "start": "rgba(240, 210, 255, 0.95)",
+        "middle": "#ad00ff",
+        "end": "#3b007a"
+      },
+      "element": ["Arcane", "Void"],
+      "power_level": 10,
+      "short_description": "An unstable crystal anomaly born from a cosmic rift.",
+      "large_description": "Forged where a cosmic rift bled into a crystal nexus, Xyralon is not alive by mortal understanding. It is an anomaly, an unstable consciousness echoing across fractured dimensions. Its mere presence warps the sky and destabilizes reality around it.",
+      "weakness": [
+        "Overloads when hit with harmonic magic",
+        "Crystal limbs regenerate slowly"
+      ],
+      "abilities": [
+        "Prismatic Onslaught",
+        "Shardstorm Collapse",
+        "Void Pulse"
+      ],
+      "minions": [
+        {
+          "id": "riftlings",
+          "name": "Riftlings",
+          "power_level": 4,
+          "abilities": [
+            "Blink movement",
+            "Minor arcane blasts"
+          ],
+          "weakness": [
+            "Cannot survive outside arcane zones"
+          ],
+          "description": "Glitches of reality spawned from Xyralon’s fractured dimensional presence."
+        },
+        {
+          "id": "prismcarvers",
+          "name": "Prismcarvers",
+          "power_level": 6,
+          "abilities": [
+            "Crystal tunneling",
+            "Focused crystal beam attacks"
+          ],
+          "weakness": [
+            "Brittle bodies shatter under concussive force"
+          ],
+          "description": "Semi-sentient constructs that sculpt crystal fields according to Xyralon’s strange patterns."
+        }
+      ]
+    }
+  ]
+}

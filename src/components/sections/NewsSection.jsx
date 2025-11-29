@@ -77,14 +77,14 @@ const NewsCard = memo(({ item, index }) => (
 
 const NewsSection = () => {
   return (
-    <section id="news" className="py-32 px-6 relative">
+    <section id="news" className="py-8 px-6 relative">
         <div className="container mx-auto max-w-7xl">
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 pb-8 border-b border-white/10">
                 <div>
                     <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter mb-2"
                         style={{ fontFamily: "AetherionV1, sans-serif" }}>
-                        Comms <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Relay</span>
+                        Comms <span className="inline-block legend-gradient pr-2 [text-rendering:optimizeLegibility]">Relay</span>
                     </h2>
                     <p className="text-gray-400 font-mono text-sm tracking-widest">
                         // LATEST TRANSMISSIONS FROM HQ

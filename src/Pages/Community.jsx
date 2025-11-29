@@ -38,7 +38,7 @@ const CommunityPage = () => {
         marqueeText="JOIN THE VANGUARD"
       />
 
-      <main className="bg-black py-20 text-gray-100 overflow-hidden">
+      <main className="bg-black py-5 text-gray-100 overflow-hidden">
         <div className="container mx-auto px-6 max-w-6xl">
           
           {/* 1. Social Grid */}

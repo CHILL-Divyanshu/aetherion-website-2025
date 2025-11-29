@@ -31,7 +31,7 @@ const DevHubPage = () => {
         marqueeText="SYSTEM LOGS"
       />
 
-      <main className="bg-black py-24 text-gray-100">
+      <main className="bg-black py-6 text-gray-100">
         <div className="container mx-auto px-6 max-w-4xl">
           
           {/* Timeline Container */}

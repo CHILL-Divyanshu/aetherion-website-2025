@@ -6,7 +6,7 @@ Aetherion is a dynamic, fully-responsive web experience designed to showcase a l
 
 ## 🌄 Website Preview
 
-![Aetherion World](./src/assets/images/banner.png)
+![Aetherion World](./src/assets/images/banner.jpg)
 
 ![World Space](./src/assets/images/World-space-v2.jpg)
 

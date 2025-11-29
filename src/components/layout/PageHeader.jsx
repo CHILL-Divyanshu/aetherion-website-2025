@@ -38,7 +38,7 @@ function PageHeader({
       )}
 
       {/* --- LAYER 2: Marquee Background (Optimized) --- */}
-      <div className="absolute inset-0 z-0 flex flex-col justify-center opacity-[0.07] pointer-events-none select-none overflow-hidden">
+      <div className="absolute inset-0 z-0 flex flex-col justify-center pointer-events-none select-none overflow-hidden">
         <div className="marquee-row animate-marquee-left whitespace-nowrap">
           {[...Array(4)].map((_, i) => (
              <span key={i} className="text-[12vh] font-black uppercase italic tracking-tighter text-transparent stroke-text px-4">

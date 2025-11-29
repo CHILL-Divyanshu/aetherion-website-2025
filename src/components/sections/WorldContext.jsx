@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import regionsData from "../../data/regions.json";
-import worldMap from "../../assets/images/Aetherion-World-v2.png";
+import worldMap from "../../assets/images/World/Aetherion-World-v2.jpg";
 
 const WORLD_DESCRIPTION =
   "Aetherion exists between realms of light and shadow, where cosmic forces collide and reshape existence itself. Each Guardian embodies a fragment of this balance—light, void, fire, and dreams.";
@@ -42,11 +42,11 @@ const WorldContext = () => {
   };
 
   return (
-    <section id="world" className="relative py-10 px-6 lg:px-10 text-white perspective-2000">
+    <section id="world" className="relative py-8 px-6 lg:px-10 text-white perspective-2000">
       <div className="container mx-auto max-w-7xl relative z-20">
         
         {/* Header Text */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
            <motion.span 
              initial={{ opacity: 0 }}
              whileInView={{ opacity: 1 }}
@@ -62,7 +62,6 @@ const WorldContext = () => {
             transition={{ duration: 0.7 }}
             style={{ fontFamily: "AetherionV1, sans-serif" }}
           >
-            {/* FIX: Removed complex gradient text. Used solid Cyan with strong text-shadow for visibility. */}
             World of{" "}<span className="inline-block legend-gradient pr-2 [text-rendering:optimizeLegibility]"> AETHERION</span>
           </motion.h2>
 

@@ -4,10 +4,10 @@ import Button from "../ui/Button";
 
 const WorldPreview = () => {
   return (
-    <section className="py-32 bg-[#02060c] relative overflow-hidden border-t border-white/5">
+    <section className="py-18 relative overflow-hidden border-t border-white/5">
       {/* Subtle Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none opacity-30" />
-
+    
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="flex flex-col lg:flex-row-reverse items-center gap-20">
           
