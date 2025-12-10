@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 function PageHeader({ 
   title, 
   subtitle, 
-  marqueeText, 
-  backgroundImage 
+  marqueeText
 }) {
   const location = useLocation();
 
@@ -24,18 +23,6 @@ function PageHeader({
 
   return (
     <header className="relative w-full overflow-hidden bg-black flex flex-col justify-center items-center isolate">
-      
-      {/* --- LAYER 1: Dynamic Background Image (Optional) --- */}
-      {backgroundImage && (
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={backgroundImage} 
-            alt="" 
-            className="w-full h-full object-cover opacity-20 blur-sm scale-110" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#02060c] via-[#02060c]/80 to-transparent" />
-        </div>
-      )}
 
       {/* --- LAYER 2: Marquee Background (Optimized) --- */}
       <div className="absolute inset-0 z-0 flex flex-col justify-center pointer-events-none select-none overflow-hidden">
