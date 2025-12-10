@@ -13,7 +13,7 @@ const LINKS = {
   explore: [
     { name: "World Map", path: "/world" },
     { name: "Guardians", path: "/guardians" },
-    { name: "Chronicles", path: "/news" },
+    { name: "News Section", path: "/news" },
   ],
   support: [
     { name: "Patch Notes", path: "/dev-hub" },
