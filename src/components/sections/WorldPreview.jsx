@@ -26,7 +26,7 @@ const WorldPreview = () => {
             
             <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-none tracking-tight">
               THE SHATTERED <br /> 
-              <span className="text-slate-500">ISLES</span>
+              <span className="inline-block legend-gradient pr-2 [text-rendering:optimizeLegibility]">ISLES</span>
             </h2>
             
             <p className="text-xl text-slate-400 leading-relaxed mb-10">

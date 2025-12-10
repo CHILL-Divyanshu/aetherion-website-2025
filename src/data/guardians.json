@@ -81,11 +81,34 @@
       "Spectral Command: Summons skeletal warriors to aid in battle."
     ],
     "affinity": ["Melee", "Fire", "Death"],
-    "weakness": "Water",
+    "weakness": "Water",  
     "theme": {
       "primary": "#f97316",
       "text": "#fdba74",
       "border": "#ea580c"
+    }
+  },
+  {
+    "id": "shadow-weaver",
+    "name": "Shadow Weaver",
+    "title": "The Veilborn Assassin",
+    "image": "/src/assets/images/Guardians/ShadowWeaver.jpg",
+    "faction": "The Umbral Covenant",
+    "role": "Stealth / Assassin",
+    "element": "Shadow",
+    "power": 9,
+    "description": "A whisper in the dark, a ripple in the void, Shadow Weaver dances at the edge of reality. Born from fractured night essence, he bends living shadows into weapons, slipping between dimensions to strike before his prey even senses fear.",
+    "abilities": [
+      "Void Fang: Channels pure shadow through his daggers, tearing through armor and draining energy.",
+      "Umbral Step: Teleports between shadows, becoming untargetable for a brief moment.",
+      "Nightbind: Summons spectral silhouettes that immobilize enemies while siphoning their strength."
+    ],
+    "affinity": ["Stealth", "Assassination", "Shadow Manipulation"],
+    "weakness": "Light",
+    "theme": {
+      "primary": "#6b21a8",
+      "text": "#c084fc",
+      "border": "#4c1d95"
     }
   }
 ]
