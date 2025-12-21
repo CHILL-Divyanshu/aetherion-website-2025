@@ -1,7 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHeader from "../components/layout/PageHeader";
 import Button from "../components/ui/Button";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Loader2 } from "lucide-react";
+import gameLore from "../data/context_aetherion.txt?raw";
 
 const SOCIALS = [
   { name: "Discord", desc: "Chat with devs & fans", color: "border-indigo-500/50 text-indigo-400" },
@@ -14,20 +17,66 @@ const CommunityPage = () => {
   const [idea, setIdea] = useState("");
   const [generated, setGenerated] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [lastSubmitted, setLastSubmitted] = useState("");
 
-  const handleForge = () => {
-    if (!idea.trim()) return;
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleStatus = () => setIsOnline(navigator.onLine);
+    window.addEventListener("online", handleStatus);
+    window.addEventListener("offline", handleStatus);
+    return () => {
+      window.removeEventListener("online", handleStatus);
+      window.removeEventListener("offline", handleStatus);
+    };
+  }, []);
+
+  const handleForge = async () => {
+    const currentIdea = idea.trim();
+    if (!currentIdea) return;
+    if (currentIdea === lastSubmitted && generated) return;
+
     setLoading(true);
     setGenerated(null);
     
-    // Simulate AI "Thinking" time
-    setTimeout(() => {
+    try {
+      // Initialize Gemini API
+      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+      // Contextual Prompt for Aetherion
+      const prompt = `
+        You are the "Idea Forge" AI for the game "Aetherion".
+        Here is the core context for the game universe:
+        ---
+        ${gameLore}
+        ---
+
+        Task: Generate a creative game item, ability, or lore snippet based on this user input: "${idea}"
+        
+        Output Format: Return ONLY a raw JSON object (no markdown) with these keys:
+        - "title": A cool, lore-accurate name.
+        - "desc": A short, exciting description (max 2 sentences).
+      `;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      
+      // Robust JSON parsing: Extract JSON object from potential markdown/text
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        setGenerated(JSON.parse(jsonMatch[0]));
+        setLastSubmitted(currentIdea);
+      } else {
+        throw new Error("No valid JSON found in response");
+      }
+    } catch (error) {
+      console.error("Forge Error:", error);
+      setGenerated({ title: "Forge Malfunction", desc: "The Aether currents are unstable. Please check your connection or API key." });
+    } finally {
       setLoading(false);
-      setGenerated({
-        title: "The Sentinel's Echo",
-        desc: "A shield forged from a fallen Guardian's memory. It absorbs kinetic energy and releases it as a devastating nova."
-      });
-    }, 2000);
+    }
   };
 
   return (
@@ -72,15 +121,33 @@ const CommunityPage = () => {
 
             <div className="max-w-2xl mx-auto bg-slate-900/80 border border-white/10 p-8 rounded-2xl shadow-2xl">
               <div className="flex gap-4 mb-6">
-                <input
-                  type="text"
-                  value={idea}
-                  onChange={(e) => setIdea(e.target.value)}
-                  placeholder="e.g. A sword made of starlight..."
-                  className="flex-1 bg-black/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 focus:outline-none"
-                />
-                <Button onClick={handleForge} disabled={loading}>
-                  {loading ? "Forging..." : "Generate"}
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    value={idea}
+                    onChange={(e) => setIdea(e.target.value)}
+                    placeholder="e.g. A sword made of starlight..."
+                    className="w-full bg-black/50 border border-slate-700 rounded-lg px-4 py-3 pr-10 text-white focus:border-cyan-500 focus:outline-none"
+                  />
+                  {/* Status Dot */}
+                  <div 
+                    className={`absolute right-3 top-[30px] -translate-y-1/2 w-2.5 h-2.5 rounded-full transition-all duration-500 ${
+                      isOnline 
+                        ? "bg-emerald-400 shadow-[0_0_10px_#34d399]" // Connected: Glowing
+                        : "bg-gray-600 opacity-50" // Offline: Greyed out
+                    }`}
+                  />
+                </div>
+                <Button 
+                  onClick={handleForge} 
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Forging...
+                    </span>
+                  ) : "Generate"}
                 </Button>
               </div>
 

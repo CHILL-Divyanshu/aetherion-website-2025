@@ -1,83 +1,59 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import Button from "../ui/Button"; // Standard Button
-
-const Corner = ({ className }) => (
-  <svg className={`absolute w-6 h-6 text-cyan-500 ${className}`} viewBox="0 0 24 24" fill="none">
-    <path d="M2 22V2H22" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
-  </svg>
-);
-
-const StatBar = ({ label, value }) => (
-  <div className="mb-4 group">
-    <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-      <span className="text-gray-400 group-hover:text-cyan-400 transition-colors">{label}</span>
-      <span className="text-cyan-400 font-mono">{value}/10</span>
-    </div>
-    <div className="h-2 w-full bg-slate-800/50 rounded-sm overflow-hidden border border-white/5">
-      <motion.div 
-        initial={{ width: 0 }}
-        whileInView={{ width: `${value * 10}%` }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="h-full bg-cyan-500 relative"
-      >
-        <div className="absolute inset-0 bg-white/20 animate-pulse" />
-      </motion.div>
-    </div>
-  </div>
-);
+import Button from "../ui/Button";
+import valeriusImg from "../../assets/images/guardians/valerius.jpg";
+import StatBar from "./StatBar";
 
 const GuardiansPreview = () => {
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-24 overflow-hidden bg-[#02060c]">
+      {/* Background Ambience */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-900/20 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/10 blur-[80px] rounded-full pointer-events-none translate-y-1/3 -translate-x-1/4" />
+
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           
-          {/* LEFT: Character Visual */}
+          {/* LEFT: Character Visual (Holographic Projection Style) */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-7 relative group"
+            className="lg:col-span-6 relative z-20"
           >
-            <div className="relative rounded-lg overflow-hidden border border-white/5 bg-slate-900/50 shadow-2xl">
-               <Corner className="top-0 left-0" />
-               <Corner className="top-0 right-0 rotate-45" />
-               <Corner className="bottom-0 left-0 -rotate-45" />
-               <Corner className="bottom-0 right-0 rotate-90" />
-               
-               <img
-                src="/src/assets/images/guardians/valerius.jpg" 
-                alt="Valerius"
-                className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#02060c] via-transparent to-transparent opacity-80" />
-              
-              <div className="absolute bottom-8 left-8">
-                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400 bg-black/60 backdrop-blur-md px-3 py-1 rounded border border-cyan-500/30">
-                    Threat Level: Extreme
-                 </span>
-              </div>
+            {/* Image Frame */}
+            <div className="relative rounded-2xl p-1 bg-gradient-to-br from-cyan-500/20 via-transparent to-blue-500/20">
+               <div className="relative rounded-xl overflow-hidden bg-[#080c14] border border-white/5 shadow-2xl aspect-[4/5] group">
+                  {/* Background Glow behind character */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-cyan-500/10 blur-[50px] rounded-full group-hover:bg-cyan-500/20 transition-colors duration-700" />
+                  
+                  <img
+                    src={valeriusImg}
+                    alt="Valerius"
+                    className="relative w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
+                  />
+                  
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#02060c] via-transparent to-transparent opacity-60" />
+                  
+                  {/* Tech Decals */}
+                  <div className="absolute top-4 left-4 w-2 h-8 border-l border-t border-cyan-500/50" />
+                  <div className="absolute bottom-4 right-4 w-8 h-2 border-r border-b border-cyan-500/50" />
+               </div>
             </div>
           </motion.div>
 
           {/* RIGHT: Data/Stats */}
-          <div className="lg:col-span-5 space-y-10">
+          <div className="lg:col-span-6 space-y-10">
             <motion.div
                initial={{ opacity: 0, y: 30 }}
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
                transition={{ duration: 0.6 }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                 <div className="h-px w-8 bg-red-500" />
-                 <span className="text-red-400 text-xs font-bold uppercase tracking-[0.2em]">Class: Juggernaut</span>
-              </div>
-              
-              {/* FIXED FONT: AetherionV1 */}
+              {/* --- PRESERVED CODE BLOCK START --- */}
               <h2 className="text-6xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none mb-2" 
                   style={{ fontFamily: "AetherionV1, sans-serif" }}>
                 Valerius
@@ -86,24 +62,37 @@ const GuardiansPreview = () => {
                   style={{ fontFamily: "AetherionV1, sans-serif" }}>
                 The Bone King
               </h3>
+              {/* --- PRESERVED CODE BLOCK END --- */}
               
-              <p className="text-gray-400 leading-relaxed mb-8 border-l-2 border-white/10 pl-6 text-lg">
-                 Commands legions of skeletal warriors forged from remnants of shattered realms. High defense, devastating area-of-effect attacks.
+              <p className="text-gray-400 text-lg leading-relaxed mb-10 font-light border-l-2 border-cyan-500/30 pl-6">
+                 An ancient warlord resurrected to command legions of skeletal warriors. He dominates the battlefield with high defense and devastating area-of-effect necromancy.
               </p>
 
-              {/* Dynamic Stats Box */}
-              <div className="bg-slate-900/40 p-8 rounded-lg border border-white/5 backdrop-blur-sm mb-10 relative">
+              {/* Modernized Stats Box */}
+              <div className="bg-[#0a101d]/80 p-8 rounded-xl border border-white/5 backdrop-blur-md mb-10 shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-500">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                
                 <StatBar label="Power" value={9} />
                 <StatBar label="Mobility" value={4} />
                 <StatBar label="Defense" value={10} />
               </div>
 
-              {/* FIXED LINK & BUTTON STYLE */}
-              <Link to="/guardians">
-                <Button variant="primary" className="w-full sm:w-auto px-8 py-4">
-                   View Full Roster
-                </Button>
-              </Link>
+              {/* Action Area */}
+              <div className="flex flex-col sm:flex-row gap-6 items-center">
+                <Link to="/guardians">
+                  <Button variant="primary" className="px-10 py-4 w-full sm:w-auto text-sm shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)]">
+                     View Full Roster
+                  </Button>
+                </Link>
+                <span className="text-xs text-gray-500 font-mono tracking-widest uppercase">
+                    // Accessing Database...
+                </span>
+              </div>
+
             </motion.div>
           </div>
         </div>

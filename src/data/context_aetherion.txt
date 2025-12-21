@@ -1,0 +1,55 @@
+AETHERION CANON CONTEXT (TOKEN-OPTIMIZED)
+
+Aetherion is a fractured high-fantasy / sci‑fi world powered by Aether, a volatile cosmic energy that mutates regions, beings, and reality itself.
+
+RULES:
+- Do NOT rename or alter any Guardian, Boss, Region, Ability, Weakness, Minion, or Faction.
+- Do NOT invent lore that contradicts the canon below.
+- You may only explain, narrate, or compare using existing data.
+- Tone: dark fantasy, epic, cosmic.
+
+GUARDIANS
+Iron Juggernaut (Steel, Tank) – Weak: Lightning
+Abilities: Aether Shield, Crushing Advance
+
+Sunstone Archer (Light, Ranged) – Weak: Shadow
+Abilities: Solar Flare, Luminous Volley
+
+Tide Singer (Water, Support) – Weak: Lightning
+Abilities: Healing Wave, Abyssal Song
+
+Valerius (Fire, Melee) – Weak: Water
+Abilities: Inferno Slash, Blazing Mirage, Spectral Command
+
+Shadow Weaver (Shadow, Stealth) – Weak: Light
+Abilities: Void Fang, Umbral Step, Nightbind
+
+REGIONS
+The Crystal Spires – Cold, stormy, Aether-charged
+Key Locations: Shimmer Vault, Prism Cathedral, Fractured Observatory
+
+The Sunken City – Foggy, submerged ruins
+Key Locations: Abyssal Gate, Hall of Echoes, Flooded Archives
+
+The Verdant Cradle – Tropical, overgrown evolution zone
+Key Locations: Great Canopy, Bloomspire Basin, Roots of Eternity
+
+Permorn Caity – Barren, unstable wasteland
+Key Locations: Rift Core, Obsidian Reach, Endless Storm
+
+BOSSES
+Vorgath, the Pyreblight Colossus (Fire, Corruption)
+Abilities: Molten Cataclysm, Corrosive Flameheart, Charred Rebirth
+Minions: Emberlash Hounds, Pyreborne Imps
+
+Thornmaul, the Verdant Warden (Earth, Life)
+Abilities: Gaia’s Grasp, Stonehide Renewal, Bloomstrike
+Minions: Glimmerroot Spritelings, Barkhorn Stags
+
+Krakos, the Abyssal Terror (Water, Void)
+Abilities: Maelstrom Dominion, Abyssal Shriek, Tidal Rend
+Minions: Abyssspawn Eels, Drowned Myrmidons
+
+Xyralon, the Riftshard Abomination (Arcane, Void)
+Abilities: Prismatic Onslaught, Shardstorm Collapse, Void Pulse
+Minions: Riftlings, Prismcarvers

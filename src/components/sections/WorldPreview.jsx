@@ -100,6 +100,7 @@ const WorldPreview = () => {
                     <div className="absolute top-[25%] left-[16%] z-10"> <MarkerPulse /> </div>
                     <div className="absolute top-[45%] right-[8%] z-10"> <MarkerPulse delay={1} /> </div>
                     <div className="absolute bottom-[25%] left-[45%] z-10"> <MarkerPulse delay={2} /> </div>
+                    <div className="absolute top-[17%] right-[28%] z-10"> <MarkerPulse delay={3} /> </div>
 
                     {/* 4. Vignette & Screen Reflection */}
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_50%,rgba(2,6,12,0.8)_100%)] z-0"></div>

@@ -3,6 +3,20 @@ import { motion } from "framer-motion";
 import GuardianCard from "../ui/GuardianCard"; 
 import bossData from "../../data/boss-roster.json"; // Ensure this path matches your folder structure
 
+// --- DYNAMIC ASSET LOADING ---
+// This ensures images are bundled correctly in production by Vite.
+// It loads all images from the Bosses folder eagerly.
+const bossAssets = import.meta.glob('../../assets/images/Bosses/*.{jpg,png,webp}', { 
+  eager: true, 
+  import: 'default' 
+});
+
+const getBossImage = (id) => {
+  // Find the path that contains the boss ID (e.g., "path/to/1.jpg")
+  const path = Object.keys(bossAssets).find(key => key.includes(`/${id}.`));
+  return path ? bossAssets[path] : null;
+};
+
 // Helper to determine theme color based on the primary element
 const getThemeColor = (elements) => {
   const primary = elements[0].toLowerCase();
@@ -35,7 +49,7 @@ const BossRoster = () => {
       role: "Zone Boss", // Static role or derived from data
       description: boss.short_description,
       // Assumption: Images are stored with IDs as filenames
-      image: `/src/assets/images/Bosses/${boss.id}.jpg`, 
+      image: getBossImage(boss.id), 
       element: boss.element[0], // Take primary element
       power: boss.power_level,
       themeColor: getThemeColor(boss.element),
@@ -47,7 +61,7 @@ const BossRoster = () => {
   return (
     <section id="boss-roster" className="relative py-15 bg-black text-white overflow-hidden transition-colors duration-700">
       {/* Dynamic Background Glow */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${activeTheme} opacity-40 transition-all duration-700 blur-[150px]`} />
+      <div className={`absolute inset-0 bg-gradient-to-br ${activeTheme} opacity-40 transition-all duration-700 blur-[100px]`} />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
       <div className="container mx-auto px-6 lg:px-10 relative z-10">
