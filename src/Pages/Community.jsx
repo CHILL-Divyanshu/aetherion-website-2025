@@ -119,7 +119,7 @@ const CommunityPage = () => {
               <p className="text-gray-400">Submit a prompt, and let our system generate a game concept.</p>
             </div>
 
-            <div className="max-w-2xl mx-auto bg-slate-900/80 border border-white/10 p-8 rounded-2xl shadow-2xl">
+            <div className="max-w-2xl mx-auto bg-slate-900/80 border border-white/10 p-8 rounded-2xl shadow-2xl backdrop-blur-md">
               <div className="flex gap-4 mb-6">
                 <div className="relative flex-1">
                   <input
@@ -153,14 +153,35 @@ const CommunityPage = () => {
 
               <AnimatePresence mode="wait">
                 {generated && (
-                  <motion.div
+                  <motion.div // Result Card
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="bg-black/40 border border-cyan-500/30 p-6 rounded-xl"
+                    className="bg-black/40 border border-cyan-500/30 p-6 rounded-xl overflow-hidden"
                   >
-                    <h4 className="text-xl font-bold text-cyan-400 mb-2">{generated.title}</h4>
-                    <p className="text-gray-300">{generated.desc}</p>
+                    <motion.h4 
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1, duration: 0.5 }}
+                      className="text-xl font-bold text-cyan-400 mb-2"
+                    >
+                      {generated.title}
+                    </motion.h4>
+                    
+                    {/* Animated Description */}
+                    <motion.p
+                      className="text-gray-300"
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        visible: { transition: { staggerChildren: 0.015 } },
+                        hidden: {},
+                      }}
+                    >
+                      {generated.desc.split('').map((char, index) => (
+                        <motion.span key={index} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}>{char}</motion.span>
+                      ))}
+                    </motion.p>
                   </motion.div>
                 )}
               </AnimatePresence>

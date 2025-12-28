@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Layout Components
@@ -25,27 +25,10 @@ import DevHubPage from "./Pages/DevHub";
 import CommunityPage from "./Pages/Community";
 import AboutPage from "./Pages/About";
 import ContactPage from "./Pages/Contact";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
+import TermsOfService from "./Pages/TermsOfService";
 
 function HomePageContent() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const sections = document.querySelectorAll(".fade-in-section");
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <main className="bg-bg-dark py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,6 +71,8 @@ function App() {
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
       </Routes>
 
       <Footer />

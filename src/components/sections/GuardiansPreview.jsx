@@ -40,7 +40,7 @@ const GuardiansPreview = () => {
                   
                   {/* Tech Decals */}
                   <div className="absolute top-4 left-4 w-2 h-8 border-l border-t border-cyan-500/50" />
-                  <div className="absolute bottom-4 right-4 w-8 h-2 border-r border-b border-cyan-500/50" />
+                  <div className="absolute bottom-4 right-4 w-2 h-8 border-r border-b border-cyan-500/50" />
                </div>
             </div>
           </motion.div>
@@ -53,7 +53,7 @@ const GuardiansPreview = () => {
                viewport={{ once: true }}
                transition={{ duration: 0.6 }}
             >
-              {/* --- PRESERVED CODE BLOCK START --- */}
+
               <h2 className="text-6xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none mb-2" 
                   style={{ fontFamily: "AetherionV1, sans-serif" }}>
                 Valerius
@@ -62,7 +62,6 @@ const GuardiansPreview = () => {
                   style={{ fontFamily: "AetherionV1, sans-serif" }}>
                 The Bone King
               </h3>
-              {/* --- PRESERVED CODE BLOCK END --- */}
               
               <p className="text-gray-400 text-lg leading-relaxed mb-10 font-light border-l-2 border-cyan-500/30 pl-6">
                  An ancient warlord resurrected to command legions of skeletal warriors. He dominates the battlefield with high defense and devastating area-of-effect necromancy.

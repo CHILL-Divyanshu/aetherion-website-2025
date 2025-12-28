@@ -4,8 +4,6 @@ import GuardianCard from "../ui/GuardianCard";
 import bossData from "../../data/boss-roster.json"; // Ensure this path matches your folder structure
 
 // --- DYNAMIC ASSET LOADING ---
-// This ensures images are bundled correctly in production by Vite.
-// It loads all images from the Bosses folder eagerly.
 const bossAssets = import.meta.glob('../../assets/images/Bosses/*.{jpg,png,webp}', { 
   eager: true, 
   import: 'default' 
@@ -59,10 +57,10 @@ const BossRoster = () => {
   const activeTheme = bosses.find((b) => b.id === hoveredId)?.themeColor || "from-red-900/10 to-black";
 
   return (
-    <section id="boss-roster" className="relative py-15 bg-black text-white overflow-hidden transition-colors duration-700">
+    <section id="boss-roster" className="relative py-24 bg-black text-white overflow-hidden transition-colors duration-700">
       {/* Dynamic Background Glow */}
       <div className={`absolute inset-0 bg-gradient-to-br ${activeTheme} opacity-40 transition-all duration-700 blur-[100px]`} />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(220,38,38,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(220,38,38,0.15)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)] pointer-events-none" />
 
       <div className="container mx-auto px-6 lg:px-10 relative z-10">
         <div className="text-center mb-20 space-y-4">

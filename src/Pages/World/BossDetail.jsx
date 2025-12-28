@@ -1,8 +1,20 @@
 import React, { useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import bossData from "../../data/boss-roster.json"; // Adjust path if needed
 import Button from "../../components/ui/Button";
+
+// --- DYNAMIC ASSET LOADING ---
+// Fix: Load images via Vite's glob import so they are bundled in production.
+const bossAssets = import.meta.glob('../../assets/images/Bosses/*.{jpg,png,webp}', { 
+  eager: true, 
+  import: 'default' 
+});
+
+const getBossImage = (id) => {
+  const path = Object.keys(bossAssets).find(key => key.includes(`/${id}.`));
+  return path ? bossAssets[path] : null;
+};
 
 const getTheme = (elementArray) => {
   const primary = elementArray[0].toLowerCase();
@@ -20,18 +32,21 @@ const BossDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const { scrollYProgress } = useScroll();
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+
   // Find boss data
   const boss = useMemo(() => bossData.bosses.find((b) => b.id === id), [id]);
 
   if (!boss) return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white space-y-4">
       <h1 className="text-4xl font-black text-red-600 tracking-widest">THREAT NOT FOUND</h1>
-      <Button onClick={() => navigate("/bosses")}>Return to Intel</Button>
+      <Button onClick={() => navigate("/world")}>Return to Intel</Button>
     </div>
   );
 
   const theme = getTheme(boss.element);
-  const imagePath = `/src/assets/images/Bosses/${boss.id}.jpg`;
+  const imagePath = getBossImage(boss.id);
 
   return (
     <div className="min-h-screen bg-[#02060c] text-white relative overflow-hidden font-sans selection:bg-red-500/30">
@@ -39,7 +54,12 @@ const BossDetail = () => {
       {/* 1. Background Ambience */}
       <div className="absolute inset-0 z-0 pointer-events-none">
          <div className="absolute inset-0 bg-gradient-to-b from-[#02060c] via-[#02060c]/90 to-[#02060c] z-10" />
-         <img src={imagePath} alt="Background" className="w-full h-full object-cover opacity-20 blur-2xl scale-110" />
+         <motion.img 
+            src={imagePath} 
+            alt="Background" 
+            className="w-full h-full object-cover opacity-20 blur-2xl scale-125" 
+            style={{ y: backgroundY }}
+          />
       </div>
 
       <div className="relative z-10 container mx-auto px-6 py-10 lg:py-16 max-w-7xl">
@@ -160,12 +180,12 @@ const BossDetail = () => {
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: 0.2 }}
-              className="bg-white/5 border border-white/10 p-7 rounded-xl backdrop-blur-sm"
+              className="bg-white/5 border border-white/10 p-7 rounded-xl backdrop-blur-md"
             >
               <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4 flex items-center gap-2">
                 <span className="w-8 h-[1px] bg-gray-600" /> Entity Profile
               </h3>
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-light">
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-normal">
                 {boss.large_description}
               </p>
             </motion.div>

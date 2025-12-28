@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Button from "../components/ui/Button"; 
+import worldSpaceImg from "../assets/images/World-space-v2.jpg";
 
 const ABOUT_CONTENT = {
   title: "About Aetherion",
@@ -11,7 +12,7 @@ const ABOUT_CONTENT = {
     "Aetherion began as a vision — a realm where art, storytelling, and engineering collide. Every guardian, every region, and every fragment of Aether has been carefully crafted by hand and code.",
     "Our mission is simple: to create an experience that blurs the line between a game and a story. Built with modern web technologies, Aetherion is designed to evolve — just like the players who enter it.",
   ],
-  image: "/src/assets/images/World-space-v2.jpg",
+  image: worldSpaceImg,
 };
 
 const About = () => {

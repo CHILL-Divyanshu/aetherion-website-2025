@@ -94,7 +94,7 @@ const WorldIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="relative z-20 pb-20 bg-[#02060c]"
+          className="relative z-20 bg-[#02060c]"
         >
           <Suspense fallback={<RosterSectionSkeleton />}>
             <RosterSection />
