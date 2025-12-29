@@ -107,6 +107,12 @@ const NewsSection = () => {
         {/* Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-cyan-900/10 blur-[100px] rounded-full pointer-events-none" />
         
+        {/* Top Fade for smooth transition from previous section */}
+        <div className="absolute top-0 w-full h-24 bg-gradient-to-b from-[#02060c] to-transparent z-10 pointer-events-none" />
+
+        {/* Bottom Fade for smooth transition */}
+        <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-[#02060c] to-transparent z-10 pointer-events-none" />
+
         <div className="container mx-auto max-w-7xl relative z-10">
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 pb-8 border-b border-white/5">

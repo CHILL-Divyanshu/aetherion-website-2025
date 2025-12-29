@@ -33,6 +33,8 @@ const WorldPreview = () => {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#080c14_1px,transparent_1px),linear-gradient(to_bottom,#080c14_1px,transparent_1px)] bg-[size:60px_60px] opacity-20"></div>
           {/* Ambient Glows */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[50vh] bg-cyan-900/20 blur-[120px] rounded-full"></div>
+          {/* Gradient Fade to blend with adjacent sections */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#02060c] via-transparent to-[#02060c]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">

@@ -12,6 +12,12 @@ const GuardiansPreview = () => {
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-900/20 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/10 blur-[80px] rounded-full pointer-events-none translate-y-1/3 -translate-x-1/4" />
 
+      {/* Top Fade for smooth transition */}
+      <div className="absolute top-0 w-full h-24 bg-gradient-to-b from-[#02060c] to-transparent z-10 pointer-events-none" />
+
+      {/* Bottom Fade for smooth transition */}
+      <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-[#02060c] to-transparent z-10 pointer-events-none" />
+
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           
@@ -68,7 +74,7 @@ const GuardiansPreview = () => {
               </p>
 
               {/* Modernized Stats Box */}
-              <div className="bg-[#0a101d]/80 p-8 rounded-xl border border-white/5 backdrop-blur-md mb-10 shadow-lg relative overflow-hidden">
+              <div className="bg-[#0b121e] p-8 rounded-xl border border-white/5 backdrop-blur-md mb-10 shadow-lg relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-500">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
