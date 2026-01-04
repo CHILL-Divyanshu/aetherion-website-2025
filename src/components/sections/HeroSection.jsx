@@ -1,8 +1,12 @@
 import React, { useCallback, useMemo, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-// --- UPDATED GLITCH TEXT (Increased Offset for Visibility) ---
+// --- IMPORTS ---
+import heroBg from "../../assets/images/hero.jpg"; 
+import CyberButton, { PlayIcon } from "../ui/CyberButton";
+
+// --- GLITCH TEXT COMPONENT ---
 const GlitchText = React.memo(({ text }) => {
   return (
     <div className="relative inline-block">
@@ -55,10 +59,9 @@ const GlitchText = React.memo(({ text }) => {
   );
 });
 
-
 GlitchText.displayName = "GlitchText";
 
-// Memoized animation variants
+// --- ANIMATION VARIANTS ---
 const ANIMATION_VARIANTS = {
   badge: {
     initial: { opacity: 0, y: -20 },
@@ -84,17 +87,20 @@ const ANIMATION_VARIANTS = {
 
 const HeroSection = React.memo(({ title, tagline, buttonText, link }) => {
   const animationVariants = useMemo(() => ANIMATION_VARIANTS, []);
+  const navigate = useNavigate();
   
-  // --- Parallax Tilt Logic ---
+  // --- SUBTLE PARALLAX TILT LOGIC ---
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseX = useSpring(x, { stiffness: 150, damping: 20 });
-  const mouseY = useSpring(y, { stiffness: 150, damping: 20 });
+  // Increased stiffness/damping for heavier, smoother feel
+  const mouseX = useSpring(x, { stiffness: 50, damping: 20 });
+  const mouseY = useSpring(y, { stiffness: 50, damping: 20 });
 
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-7deg", "7deg"]);
+  // CHANGE: Reduced range from 7deg to 2deg for subtle movement
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["2deg", "-2deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-2deg", "2deg"]);
 
   const handleMouseMove = useCallback((e) => {
     if (!ref.current) return;
@@ -121,17 +127,21 @@ const HeroSection = React.memo(({ title, tagline, buttonText, link }) => {
     >
       
       {/* 1. Immersive Background Layer */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Radial Gradient Core */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(6,182,212,0.15),transparent_60%)] animate-pulse-slow" />
-
-        {/* Floating Particles */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroBg})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#02060c]/80 to-[#02060c]" />
+        
+        {/* Ambient Effects */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(6,182,212,0.1),transparent_70%)] animate-pulse-slow mix-blend-screen" />
         <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-500 rounded-full blur-[2px] animate-float-slow" />
         <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-blue-500 rounded-full blur-[4px] animate-float-delayed" />
         <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-white rounded-full blur-[1px] animate-ping-slow" />
       </div>
 
-      {/* 2. Content Stack with 3D Tilt */}
+      {/* 2. Content Stack with Subtle 3D Tilt */}
       <motion.div 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className="relative z-30 container mx-auto px-6 flex flex-col items-center text-center"
@@ -141,7 +151,8 @@ const HeroSection = React.memo(({ title, tagline, buttonText, link }) => {
         <motion.div 
           {...animationVariants.badge}
           className="mb-12 cursor-default"
-          style={{ transform: "translateZ(30px)" }}
+          // Reduced Z-depth for subtlety (was 30px)
+          style={{ transform: "translateZ(20px)" }}
         >
           <div className="group relative inline-flex items-center gap-3 px-5 py-2 border border-cyan-500/30 bg-cyan-950/40 backdrop-blur-md rounded-full transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-900/60 hover:px-8 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]">
             <span className="relative flex h-2 w-2">
@@ -155,11 +166,12 @@ const HeroSection = React.memo(({ title, tagline, buttonText, link }) => {
           </div>
         </motion.div>
 
-        {/* --- PRESERVED TITLE SECTION --- */}
+        {/* --- TITLE SECTION --- */}
         <motion.h1 
           {...animationVariants.title}
           className="text-7xl md:text-9xl font-black text-white tracking-tighter mb-8 leading-[0.85]"
-          style={{ fontFamily: "AetherionV1, sans-serif", transform: "translateZ(60px)" }}
+          // Reduced Z-depth (was 60px)
+          style={{ fontFamily: "AetherionV1, sans-serif", transform: "translateZ(40px)" }}
         >
           <GlitchText text="FORGE YOUR" />
           <br />
@@ -167,54 +179,50 @@ const HeroSection = React.memo(({ title, tagline, buttonText, link }) => {
             LEGEND
           </span>
         </motion.h1>
-        {/* ------------------------------- */}
 
         {/* Description */}
         <motion.p 
           {...animationVariants.tagline}
           className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-14 leading-relaxed font-light tracking-wide"
-          style={{ transform: "translateZ(40px)" }}
+          // Reduced Z-depth (was 40px)
+          style={{ transform: "translateZ(30px)" }}
         >
           {tagline || "Explore a world fractured by celestial power. Command the Void, master the Elements, and restore the balance."}
         </motion.p>
 
-        {/* Strong CTA Button */}
+        {/* --- BUTTON LOGIC SPLIT --- */}
         <motion.div 
           {...animationVariants.button}
-          style={{ transform: "translateZ(50px)" }}
+          // Reduced Z-depth (was 50px)
+          style={{ transform: "translateZ(35px)" }}
+          className="flex justify-center"
         >
-          <Link
-            to={link || "/play"}
-            className="relative inline-flex items-center justify-center px-10 py-5 font-bold text-white bg-transparent border-2 border-cyan-500 rounded-lg transition-all duration-300 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] overflow-hidden group"
-          >
-            {/* Hover ripple effect */}
-            <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-20" />
-            
-            {/* Button text */}
-            <span className="relative z-10 flex items-center gap-3 uppercase tracking-widest text-sm">
-              {buttonText || "Initiate Protocol"}
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </span>
-          </Link>
+          
+          {/* 1. DESKTOP: Default CyberButton -> /world */}
+          <div className="hidden lg:block">
+            <CyberButton 
+              text="INITIATE PROTOCOL"
+              onClick={() => navigate('/world')}
+            />
+          </div>
+
+          {/* 2. MOBILE/TABLET: Play Variant CyberButton -> /play */}
+          <div className="lg:hidden transform scale-90">
+            <CyberButton 
+               variant="play"
+               text="PLAY NOW"
+               icon={PlayIcon}
+               onClick={() => navigate('/play')}
+            />
+          </div>
+
         </motion.div>
       </motion.div>
       
       {/* Bottom Fade */}
       <div className="absolute bottom-0 w-full h-40 bg-gradient-to-t from-[#02060c] to-transparent z-20 pointer-events-none" />
 
-      {/* Global CSS for background float animations */}
+      {/* Styles */}
       <style>{`
         @keyframes float-slow {
           0%, 100% { transform: translateY(0); }

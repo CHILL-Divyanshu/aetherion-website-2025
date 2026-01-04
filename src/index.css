@@ -348,3 +348,35 @@ h1, h2, h3, h4, h5, h6 {
 #footer{
   background-color: red;
 }
+
+@layer utilities {
+  /* --- Scanline Animation (Vertical sweep) --- */
+  @keyframes scanline {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(350%); }
+  }
+  .animate-scanline {
+    animation: scanline 1.5s linear infinite;
+  }
+
+  /* --- Border Travel Animation (SVG Dash Offset) --- */
+  /* This moves the dash around the SVG path */
+  @keyframes border-travel {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .animate-border-travel {
+    /* [dash length] [gap length] - Gap is huge to show only one 'comet' */
+    stroke-dasharray: 100 800;
+    /* Start offset at total length to hide it initially */
+    stroke-dashoffset: 900;
+    animation: border-travel 4s linear infinite;
+  }
+  
+  /* Pause the border loop when hovering (since other effects take over) */
+  .group:hover .animate-border-travel {
+      animation-play-state: paused;
+      opacity: 0;
+      transition: opacity 0.3s;
+  }
+}

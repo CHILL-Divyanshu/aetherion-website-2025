@@ -27,6 +27,7 @@ import AboutPage from "./Pages/About";
 import ContactPage from "./Pages/Contact";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsOfService from "./Pages/TermsOfService";
+import NewsPage from "./Pages/NewsPage";
 
 function HomePageContent() {
   return (
@@ -71,6 +72,7 @@ function App() {
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
       </Routes>

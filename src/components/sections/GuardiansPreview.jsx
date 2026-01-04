@@ -1,22 +1,20 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import Button from "../ui/Button";
-import valeriusImg from "../../assets/images/guardians/valerius.jpg";
+// CHANGE: Imported CyberButton
+import CyberButton from "../ui/CyberButton";
+import valeriusImg from "../../assets/images/Guardians/valerius.jpg";
 import StatBar from "./StatBar";
 
 const GuardiansPreview = () => {
   return (
-    <section className="relative py-24 overflow-hidden bg-[#02060c]">
-      {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-900/20 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/10 blur-[80px] rounded-full pointer-events-none translate-y-1/3 -translate-x-1/4" />
-
-      {/* Top Fade for smooth transition */}
-      <div className="absolute top-0 w-full h-24 bg-gradient-to-b from-[#02060c] to-transparent z-10 pointer-events-none" />
-
-      {/* Bottom Fade for smooth transition */}
-      <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-[#02060c] to-transparent z-10 pointer-events-none" />
+    // FIX 1: Changed to bg-transparent and removed 'overflow-hidden' to prevent clipping 3D elements if any
+    <section className="relative py-24 bg-transparent">
+      
+      {/* DEAD CODE REMOVED: 
+          - Removed background ambient blobs
+          - Removed Top/Bottom Gradient Fades (The dark bars)
+      */}
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
@@ -31,9 +29,7 @@ const GuardiansPreview = () => {
           >
             {/* Image Frame */}
             <div className="relative rounded-2xl p-1 bg-gradient-to-br from-cyan-500/20 via-transparent to-blue-500/20">
-               <div className="relative rounded-xl overflow-hidden bg-[#080c14] border border-white/5 shadow-2xl aspect-[4/5] group">
-                  {/* Background Glow behind character */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-cyan-500/10 blur-[50px] rounded-full group-hover:bg-cyan-500/20 transition-colors duration-700" />
+               <div className="relative rounded-xl overflow-hidden bg-[#080c14]/80 backdrop-blur-sm border border-white/10 shadow-2xl aspect-[4/5] group">
                   
                   <img
                     src={valeriusImg}
@@ -73,9 +69,9 @@ const GuardiansPreview = () => {
                  An ancient warlord resurrected to command legions of skeletal warriors. He dominates the battlefield with high defense and devastating area-of-effect necromancy.
               </p>
 
-              {/* Modernized Stats Box */}
-              <div className="bg-[#0b121e] p-8 rounded-xl border border-white/5 backdrop-blur-md mb-10 shadow-lg relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
+              {/* FIX 2: Modernized Stats Box (More Glass, Less Solid) */}
+              <div className="bg-black/40 p-8 rounded-xl border border-white/10 backdrop-blur-md mb-10 shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-500">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
@@ -86,14 +82,17 @@ const GuardiansPreview = () => {
                 <StatBar label="Defense" value={10} />
               </div>
 
-              {/* Action Area */}
+              {/* FIX 3: Action Area with CyberButton */}
               <div className="flex flex-col sm:flex-row gap-6 items-center">
                 <Link to="/guardians">
-                  <Button variant="primary" className="px-10 py-4 w-full sm:w-auto text-sm shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)]">
-                     View Full Roster
-                  </Button>
+                  {/* Scaled down to 80% (scale-90 on desktop) so it doesn't look gigantic next to the text */}
+                  <div className="transform scale-90 origin-left">
+                    <CyberButton 
+                        text="VIEW FULL ROSTER"
+                    />
+                  </div>
                 </Link>
-                <span className="text-xs text-gray-500 font-mono tracking-widest uppercase">
+                <span className="text-xs text-gray-500 font-mono tracking-widest uppercase animate-pulse">
                     // Accessing Database...
                 </span>
               </div>

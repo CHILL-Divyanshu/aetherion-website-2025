@@ -2,13 +2,11 @@ import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
-import Button from "../ui/Button";
+// CHANGE: Using CyberButton for the main CTA
+import CyberButton from "../ui/CyberButton";
 
 // --- ASSET IMPORTS ---
-// Importing images ensures they are hashed and bundled correctly for production.
 import helmImg from "../../assets/images/News/Valerius_helm.jpg";
-// Note: Ensure these files exist in your folder, otherwise the build will fail.
-// If they have different names, update the import paths below.
 import islesImg from "../../assets/images/News/shattered-isles.jpg";
 import aetherImg from "../../assets/images/News/aether-power-system.jpg";
 
@@ -55,7 +53,7 @@ const NewsCard = memo(({ item, index }) => (
         <div className="w-2 h-2 border-b-2 border-l-2 border-cyan-500"></div>
     </div>
 
-    {/* Image Area with Glitch/Scan Effect */}
+    {/* Image Area */}
     <div className="relative h-60 overflow-hidden">
       <div className="absolute top-4 left-4 z-20">
         <span className="inline-flex items-center px-3 py-1 bg-black/60 backdrop-blur-md border border-cyan-500/30 text-[10px] font-black uppercase tracking-widest text-cyan-400">
@@ -69,7 +67,6 @@ const NewsCard = memo(({ item, index }) => (
         alt={item.title} 
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
       />
-      
     </div>
 
     {/* Content Area */}
@@ -103,37 +100,32 @@ const NewsCard = memo(({ item, index }) => (
 
 const NewsSection = () => {
   return (
-    <section id="news" className="py-24 px-6 relative bg-[#02060c] overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-cyan-900/10 blur-[100px] rounded-full pointer-events-none" />
+    <section id="news" className="py-24 px-6 relative bg-transparent overflow-hidden">
         
-        {/* Top Fade for smooth transition from previous section */}
-        <div className="absolute top-0 w-full h-24 bg-gradient-to-b from-[#02060c] to-transparent z-10 pointer-events-none" />
-
-        {/* Bottom Fade for smooth transition */}
-        <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-[#02060c] to-transparent z-10 pointer-events-none" />
-
         <div className="container mx-auto max-w-7xl relative z-10">
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 pb-8 border-b border-white/5">
                 <div>
-                    {/* --- PRESERVED CODE BLOCK START --- */}
                     <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter mb-2"
                         style={{ fontFamily: "AetherionV1, sans-serif" }}>
                         Comms <span className="inline-block legend-gradient pr-2 [text-rendering:optimizeLegibility]">Relay</span>
                     </h2>
-                    {/* --- PRESERVED CODE BLOCK END --- */}
                     
                     <p className="text-cyan-500/60 font-mono text-xs tracking-[0.3em] mt-2">
                         // INCOMING TRANSMISSIONS FROM HQ
                     </p>
                 </div>
-                {/* Standardized Button */}
-                <Link to="/dev-hub" className="hidden md:block">
-                    <Button variant="ghost" className="text-xs">
-                        View Full Archive
-                    </Button>
-                </Link>
+                
+                {/* CHANGE: Applied 'transform scale-75 origin-right' 
+                   This reduces the button size by 25% on desktop, making the ratio with the text much better.
+                */}
+                <div className="hidden md:block transform scale-80 origin-right">
+                    <Link to="/dev-hub">
+                        <CyberButton 
+                            text="VIEW FULL ARCHIVE"
+                        />
+                    </Link>
+                </div>
             </div>
 
             {/* Grid */}
@@ -143,11 +135,15 @@ const NewsSection = () => {
                 ))}
             </div>
             
-            <div className="mt-12 md:hidden flex justify-center">
+            {/* CHANGE: Applied 'scale-90' for mobile to prevent it from hitting screen edges 
+               while keeping it tap-friendly.
+            */}
+            <div className="mt-12 md:hidden flex justify-center transform scale-90">
                 <Link to="/dev-hub" className="w-full">
-                    <Button variant="secondary" className="w-full text-xs">
-                        View Full Archive
-                    </Button>
+                    <CyberButton 
+                        text="VIEW FULL ARCHIVE"
+                        className="w-full"
+                    />
                 </Link>
             </div>
         </div>
